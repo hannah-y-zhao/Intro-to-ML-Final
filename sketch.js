@@ -5,7 +5,7 @@
 let pages=1
 let circlePosArr = [[]];
 let circlePos;
-let blanksArr = [1,2]
+let blanksArr = [2,3]
 let currentBlank, totalBlanks
 let tempText = "press t"
 let sketchTime=20
@@ -13,9 +13,11 @@ let vid
 
 function setup(){
     createCanvas(windowWidth,windowHeight)
-    rectMode(CENTER)
-    vid = createCapture(VIDEO)
-    vid.hide()
+    // rectMode(CENTER)
+    imageMode(CENTER)
+
+    vid = createCapture(VIDEO) //640 x 480
+    vid.hide() 
 }
   
 function draw() {
@@ -53,7 +55,6 @@ function page2(){
 function page3(){
     background(220)
     
-    imageMode(CENTER)
     image(vid,width/2,height/2)
 
     if (currentBlank){
@@ -94,8 +95,10 @@ function page5(){
     text("pg 5",width/2,height/2)
     for (let i=0;i<circlePosArr.length;i++){
         for (let j=0;j<circlePosArr[i].length;j++){
-            // scale(0.5)
-            circle(circlePosArr[i][j].x,circlePosArr[i][j].y,5)
+            push()
+            scale(0.5)
+            circle(circlePosArr[i][j].x+500*i, circlePosArr[i][j].y, 5)
+            pop()
     }
 }
 }
