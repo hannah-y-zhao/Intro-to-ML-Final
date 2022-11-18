@@ -1,11 +1,21 @@
-let pages=1
 //timeout shorter for each one, 20-15-10
 //p5 speech to read out story at the end
 //saving images that are drawn
 //separate canvas
+let pages=1
+let circlePosArr = [[]];
+let circlePos;
+let blanksArr = [1,2]
+let currentBlank, totalBlanks
+let tempText = "press t"
+let sketchTime=20
+let vid
 
 function setup(){
     createCanvas(windowWidth,windowHeight)
+    rectMode(CENTER)
+    vid = createCapture(VIDEO)
+    vid.hide()
 }
   
 function draw() {
@@ -20,6 +30,8 @@ function draw() {
       break;
       case 5: page5()
       break;
+      case 6: page6()
+      break;
     }
 }
 
@@ -27,28 +39,52 @@ function page1(){
     background(220)
     noStroke()
     fill(0)
-    text("pg 1",width/2,height/2)
+    text(tempText,width/2,height/2)
+
 }
 
 function page2(){
     background(220)
     noStroke()
     fill(0)
-    text("pg 2",width/2,height/2)
+    text("instructions",width/2,height/2)
 }
 
 function page3(){
     background(220)
-    noStroke()
-    fill(0)
-    text("pg 3",width/2,height/2)
+    
+    imageMode(CENTER)
+    image(vid,width/2,height/2)
+
+    if (currentBlank){
+        if (currentBlank<=totalBlanks){
+            sketchTime=1000*(25-currentBlank*5)
+            console.log("sketchTime: ",sketchTime,"; currentBlank: ", currentBlank)
+        }
+        // setInterval(pages=4,sketchTime)
+    }
+
+    if (circlePosArr.length > 0) {
+        for (i = 0; i < circlePosArr[circlePosArr.length-1].length; i++) {
+            fill('black')
+            noStroke()
+            circle(circlePosArr[circlePosArr.length-1][i].x, circlePosArr[circlePosArr.length-1][i].y, 15);
+        }
+    }
 }
 
 function page4(){
     background(220)
     noStroke()
     fill(0)
-    text("pg 4",width/2,height/2)
+    text("break",width/2,height/2)
+
+    // if (currentBlank<=totalBlanks){
+    //     // setInterval(pages=3,3000)
+    //     currentBlank++
+    // } else if (currentBlank==totalBlanks){
+    //     // setInterval(pages=5,3000)
+    // }
 }
 
 function page5(){
@@ -56,17 +92,72 @@ function page5(){
     noStroke()
     fill(0)
     text("pg 5",width/2,height/2)
+    for (let i=0;i<circlePosArr.length;i++){
+        for (let j=0;j<circlePosArr[i].length;j++){
+            // scale(0.5)
+            circle(circlePosArr[i][j].x,circlePosArr[i][j].y,5)
+    }
+}
+}
+
+function page6(){
+    background(220)
+    noStroke()
+    fill(0)
+    text("pg 6",width/2,height/2)
+}
+
+function selectTopic(){
+    totalBlanks=random(blanksArr)
+    currentBlank=1
+    console.log("totalBlanks: ",totalBlanks)
+    tempText=totalBlanks
 }
 
 function switchPages(){
-    if (pages==5){
-      pages=1
-    }else{
-      pages++
+    if (pages==6){
+        tempText = "press t"
+        pages=1
+    }else if (currentBlank<=totalBlanks&&pages==4){
+      pages=3
+      currentBlank++
+      console.log("WORK")
+    }else if (currentBlank==totalBlanks&&pages==3){
+        circlePosArr.shift()
+        console.log("circlePosArr: ",circlePosArr)
+        pages=5
+    }
+    else{
+        pages++
+    }
+    if (pages==3){
+        circlePosArr.push([])
     }
     console.log(pages)
 }
 
-function mousePressed(){
-    switchPages()
+function keyPressed(){
+    if (key===" "){
+        switchPages()
+    }
+    if (pages==1&&key==="t"){
+        selectTopic()
+    }
+}
+
+function temp(){
+    console.log('temp')
+}
+
+function mouseDragged(){
+    if (pages==3){
+        circlePos = {
+            x: mouseX,
+            y: mouseY,
+          };
+        if (circlePosArr.length){
+            circlePosArr[circlePosArr.length-1].push(circlePos)
+        }
+        console.log(circlePosArr)
+    }
 }
