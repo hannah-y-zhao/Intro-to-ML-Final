@@ -2,6 +2,8 @@
 //p5 speech to read out story at the end
 //saving images that are drawn
 //separate canvas
+
+//translate(vid.width,0) scale(-1,1) to flip video
 let pages=1
 let circlePosArr = [[]];
 let circlePos;
