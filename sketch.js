@@ -10,7 +10,7 @@ let circlePos;
 let blanksArr = [2,3]
 let currentBlank, totalBlanks
 let tempText = "press t"
-let sketchTime=20
+let sketchTime=20000;
 let vid
 
 function setup(){
@@ -55,6 +55,7 @@ function page2(){
 }
 
 function page3(){
+    // console.log('page3')
     background(220)
     
     image(vid,width/2,height/2)
@@ -62,9 +63,9 @@ function page3(){
     if (currentBlank){
         if (currentBlank<=totalBlanks){
             sketchTime=1000*(25-currentBlank*5)
-            console.log("sketchTime: ",sketchTime,"; currentBlank: ", currentBlank)
+            // console.log("sketchTime: ",sketchTime,"; currentBlank: ", currentBlank)
         }
-        // setInterval(pages=4,sketchTime)
+        
     }
 
     if (circlePosArr.length > 0) {
@@ -83,10 +84,10 @@ function page4(){
     text("break",width/2,height/2)
 
     // if (currentBlank<=totalBlanks){
-    //     // setInterval(pages=3,3000)
+    //     setInterval(pages=3,3000)
     //     currentBlank++
     // } else if (currentBlank==totalBlanks){
-    //     // setInterval(pages=5,3000)
+    //     setInterval(pages=5,3000)
     // }
 }
 
@@ -124,13 +125,18 @@ function switchPages(){
         tempText = "press t"
         pages=1
     }else if (currentBlank<=totalBlanks&&pages==4){
-      pages=3
+    //   pages=3
+      setInterval(temp(),3000)
       currentBlank++
       console.log("WORK")
-    }else if (currentBlank==totalBlanks&&pages==3){
+    }else if (currentBlank<=totalBlanks&&pages==3){
+        setInterval(temp(),sketchTime)
+    }
+    else if (currentBlank==totalBlanks&&pages==3){
         circlePosArr.shift()
         console.log("circlePosArr: ",circlePosArr)
-        pages=5
+        // pages=5
+        setInterval(pages=5,sketchTime)
     }
     else{
         pages++
@@ -151,7 +157,7 @@ function keyPressed(){
 }
 
 function temp(){
-    console.log('temp')
+    console.log('TEMP TEMP TEMP')
 }
 
 function mouseDragged(){
