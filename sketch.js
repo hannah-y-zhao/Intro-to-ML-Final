@@ -441,9 +441,9 @@ function temp() {
 
       //   }
       console.log("posArr: ", posArr);
-    }
-  }
-}
+//     }
+//   }
+// }
 
 function darkBlue(size, font, align, str = " ", x = 0, y = 0) {
   fill(0, 75, 168);
