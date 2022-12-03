@@ -175,6 +175,7 @@ function page3() {
   translate(vid.width, 0);
   scale(-1, 1);
   image(vid, -vid.width / 8, height / 2);
+// image(vid,0,0)
   pop();
 
 
@@ -183,14 +184,20 @@ function page3() {
     push()
     translate(vid.width, 0);
     scale(-1, 1);
-    let Xindex = index[0] - vid.width * 5 / 8
-    let Yindex = index[1] + vid.height / 4
-    let Xmiddle = middle[0] - vid.width * 5 / 8
-    let Ymiddle = middle[1] + vid.height / 4
+    // let Xindex = index[0] - vid.width * 5 / 8
+    // let Yindex = index[1] + vid.height / 4
+    // let Xmiddle = middle[0] - vid.width * 5 / 8
+    // let Ymiddle = middle[1] + vid.height / 4
+    let Xindex = index[0]
+    let Yindex = index[1]
+    let Xmiddle = middle[0] 
+    let Ymiddle = middle[1] 
     fill('red')
     circle(Xindex, Yindex, 15)
     fill('blue')
     circle(Xmiddle, Ymiddle, 15)
+
+    //when set finger coords points, do width of video-x coord of finger
 
     if (posArr.length){
         for (let i = 1; i < posArr.length; i++) {
@@ -200,63 +207,67 @@ function page3() {
         }
     }
     console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
-    // if (
-    //     Xindex > width / 2 - vid.height / 2 &&
-    //     Xindex < width / 2 + vid.height / 2 &&
-    //     Yindex > height / 2 - vid.height / 2 && 
-    //     Yindex < height / 2 + vid.height / 2 
-    //     // Xindex > width / 2 - vid.height / 4 &&
-    //     // Xindex < width / 2 + vid.height / 4 &&
-    //     // Yindex > height / 2 - vid.height / 4 &&
-    //     // Yindex < height / 2 + vid.height / 4 &&
-    //     // Yindex < Ymiddle
-    //   ) {
-    //     console.log('within square')
-    //     // let xy = {
-    //     //     x: Xindex,
-    //     //     y: Yindex
-    //     // }
-    //     // posArr.push(xy)
+    if (
+        // Xindex > width / 2 - vid.height / 2 &&
+        // Xindex < width / 2 + vid.height / 2 &&
+        // Yindex > height / 2 - vid.height / 2 && 
+        // Yindex < height / 2 + vid.height / 2 
+        Xindex > -width / 2 - vid.height / 2 &&
+        Xindex < -width / 2 + vid.height / 2 &&
+        Yindex > height / 2 - vid.height / 2 && 
+        Yindex < height / 2 + vid.height / 2 
+        // Xindex > width / 2 - vid.height / 4 &&
+        // Xindex < width / 2 + vid.height / 4 &&
+        // Yindex > height / 2 - vid.height / 4 &&
+        // Yindex < height / 2 + vid.height / 4 &&
+        // Yindex < Ymiddle
+      ) {
+        console.log('within square')
+        // let xy = {
+        //     x: Xindex,
+        //     y: Yindex
+        // }
+        // posArr.push(xy)
         
-    //     lineCoords = {
-    //       px: pmouseX,
-    //       py: pmouseY,
-    //       x: mouseX,
-    //       y: mouseY,
-    //     };
-    //     if (posArr.length) {
-    //       posArr[posArr.length - 1].push(lineCoords);
-    //     }
-    //     console.log("posArr: ", posArr);
-    //   }
-    //   pop()
-    //   if (posArr.length>0){
-    //     for (let i = 1; i < posArr.length; i++) {
-    //         const previous = posArr[i - 1];
-    //         const current = posArr[i];
-    //         stroke(0);
-    //         strokeWeight(25);
+        lineCoords = {
+          px: pmouseX,
+          py: pmouseY,
+          x: mouseX,
+          y: mouseY,
+        };
+        if (posArr.length) {
+          posArr[posArr.length - 1].push(lineCoords);
+        }
+        console.log("posArr: ", posArr);
+      }
+      pop()
+      if (posArr.length>0){
+        for (let i = 1; i < posArr.length; i++) {
+            const previous = posArr[i - 1];
+            const current = posArr[i];
+            stroke(0);
+            strokeWeight(25);
         
-    //         line(previous.x, previous.y, current.x, current.y);
+            line(previous.x, previous.y, current.x, current.y);
     
-    //         // circle(current.x, current.y, 27);
-    //       }
-    //   }
+            // circle(current.x, current.y, 27);
+          }
+      }
   }
 
 
-//   if (posArr.length > 0) {
-//     for (i = 0; i < posArr[posArr.length - 1].length; i++) {
-//       stroke("black");
-//       strokeWeight(16);
-//       line(
-//         posArr[posArr.length - 1][i].px,
-//         posArr[posArr.length - 1][i].py,
-//         posArr[posArr.length - 1][i].x,
-//         posArr[posArr.length - 1][i].y
-//       );
-//     }
-//   }
+  if (posArr.length > 0) {
+    for (i = 0; i < posArr[posArr.length - 1].length; i++) {
+      stroke("black");
+      strokeWeight(16);
+      line(
+        posArr[posArr.length - 1][i].px,
+        posArr[posArr.length - 1][i].py,
+        posArr[posArr.length - 1][i].x,
+        posArr[posArr.length - 1][i].y
+      );
+    }
+  }
 }
 
 function page4() {
@@ -306,28 +317,30 @@ function switchPages() {
   if (pages == 6) {
     tempText = "press t";
     pages = 1;
-  } else if (currentBlank <= totalBlanks && pages == 4) {
+  }  else {
+    pages++;
+  }
+  console.log("currentBlank: ",currentBlank, "totalBlanks: ",totalBlanks)
+  if (currentBlank < totalBlanks && pages == 3) {
+    // posArr.push([])
+    console.log("something is happening")
+    setTimeout(() => {
+      page3to4();
+    }, sketchTime);
+  } else if (currentBlank < totalBlanks && pages == 4) {
     //   pages=3
-    setInterval(() => {
-      pages = 3;
+    setTimeout(() => {
+      page4to3();
     }, 3000);
     currentBlank++;
     console.log("WORK");
-  } else if (currentBlank <= totalBlanks && pages == 3) {
-    console.log("something is happening")
-    setInterval(() => {
-      page3to4();
-    }, sketchTime);
   } else if (currentBlank == totalBlanks && pages == 3) {
     // posArr.shift()
     console.log("posArr: ", posArr);
     // pages=5
-    setInterval((pages = 5), sketchTime);
-  } else {
-    pages++;
-  }
-  if (pages == 3) {
-    // posArr.push([])
+    setTimeout(() => {
+        page3to5()
+    }, sketchTime);
   }
   console.log(pages);
   posArr = []
@@ -335,10 +348,21 @@ function switchPages() {
 
 function page3to4(){
     background(255)
+    //draw pts
     sketch = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
     classifySketch()
     console.log(sketch)
+    switchPages()
+}
+
+function page4to3(){
+    pages=2
+    switchPages()
+}
+
+function page3to5(){
     pages=4
+    switchPages()
 }
 
 function keyPressed() {
@@ -354,26 +378,26 @@ function temp() {
   console.log("TEMP TEMP TEMP");
 }
 
-function mouseDragged() {
-  if (pages == 3) {
-    if (
-      mouseX > width / 2 - vid.height / 2 &&
-      mouseX < width / 2 + vid.height / 2 &&
-      mouseY > height / 2 - vid.height / 2 &&
-      mouseY < height / 2 + vid.height / 2
-    ) {
-      lineCoords = {
-        px: pmouseX,
-        py: pmouseY,
-        x: mouseX,
-        y: mouseY,
-      };
-    //   if (posArr.length) {
-        // posArr[posArr.length - 1].push(lineCoords);
-        posArr.push(lineCoords);
+// function mouseDragged() {
+//   if (pages == 3) {
+//     if (
+//       mouseX > width / 2 - vid.height / 2 &&
+//       mouseX < width / 2 + vid.height / 2 &&
+//       mouseY > height / 2 - vid.height / 2 &&
+//       mouseY < height / 2 + vid.height / 2
+//     ) {
+//       lineCoords = {
+//         px: pmouseX,
+//         py: pmouseY,
+//         x: mouseX,
+//         y: mouseY,
+//       };
+//     //   if (posArr.length) {
+//         // posArr[posArr.length - 1].push(lineCoords);
+//         posArr.push(lineCoords);
 
-    //   }
-      console.log("posArr: ", posArr);
-    }
-  }
-}
+//     //   }
+//       console.log("posArr: ", posArr);
+//     }
+//   }
+// }
