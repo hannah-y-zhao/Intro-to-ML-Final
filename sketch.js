@@ -14,70 +14,95 @@ let sketchTime = 20000;
 let vid;
 let doodleModel, doodleResults, sketch;
 let handModel, handData, index, middle;
-let tempArr = []
+let tempArr = [];
 let madLibsArr = [
+  [
+    ["Someone I know recently combined "],
+    [" flavored Syrup & "],
+    [". Popcorn thinking it would be a nice desert. It tasted like "],
+    [" and they don't recommend anyone else try it either."],
+  ],
+  [
+    ["Hang on, the "],
+    ["(s) are scratching at the "],
+    [" and they'll be upset by the lack of "],
+    ["(s)."],
+  ],
+  [
+    ["Most "],
+    [" attacks occur about 10 feet from the "],
+    [" since that's where all the "],
+    ["(s) are."],
+  ],
+  [
+    ["I asked for some "],
     [
-      ["Someone I know recently combined "],
-      [" flavored Syrup & "],
-      [". Popcorn thinking it would be a nice desert. It tasted like "],
-      [" and they don't recommend anyone else try it either."],
+      "(s) for Christmas but Santa returned my letter and said I already have too many ",
     ],
+    ["(s)! He gave me a(n) "],
+    ["instead."],
+  ],
+  [
+    ["Just the sight of his "],
+    [" made me want to run and hide under my mom's "],
+    ["... I haven't been that scared since I first saw a(n) "],
+    ["."],
+  ],
+  [
+    ["She wanted a pet "],
+    [" but ended up getting a(n) "],
+    [" and a(n) "],
+    [" instead."],
+  ],
+  [
+    ["Written "],
+    ["(s) in instruction "],
+    ["(s) are worthless since "],
+    ["(s) can't read."],
+  ],
+  [
+    ["There aren't enough "],
+    ["(s) in the world to stop the "],
+    [" that's coming out of his "],
+    ["."],
+  ],
+  [
     [
-        ["Hang on, the "],
-        ["(s) are scratching at the "],
-        [" and they'll be upset by the lack of "],
-        ["(s)."]
+      "She's been eyeing them all day and waiting to make her move like a wild ",
     ],
-    [
-        ["Most "],
-        [" attacks occur about 10 feet from the "],
-        [" since that's where all the "],
-        ["(s) are."]
-    ],
-    [
-        ["I asked for some "],
-        ["(s) for Christmas but Santa returned my letter and said I already have too many "],
-        ["(s)! He gave me a(n) "],
-        ["instead."]
-    ],
-    [
-        ["Just the sight of his "],
-        [" made me want to run and hide under my mom's "],
-        ["... I haven't been that scared since I first saw a(n) "],
-        ["."]
-    ],
-    [
-        ["She wanted a pet "],
-        [" but ended up getting a(n) "],
-        [" and a(n) "],
-        [" instead."]
-    ],
-    [
-        ["Written "],
-        ["(s) in instruction "],
-        ["(s) are worthless since "],
-        ["(s) can't read."]
-    ],
-    [
-        ["There aren't enough "],
-        ["(s) in the world to stop the "],
-        [" that's coming out of his "],
-        ["."]
-    ],
-    [
-        ["She's been eyeing them all day and waiting to make her move like a wild "],
-        [" stalking a(n) "],
-        [" in the "],
-        ["."]
-    ],
-    [
-        ["He embraced his new life as a(n) "],
-        [". Although he thought there would be more "],
-        ["(s) involved, "],
-        ["(s) are okay too."]
-    ]
-  ];
-  
+    [" stalking a(n) "],
+    [" in the "],
+    ["."],
+  ],
+  [
+    ["He embraced his new life as a(n) "],
+    [". Although he thought there would be more "],
+    ["(s) involved, "],
+    ["(s) are okay too."],
+  ],
+];
+
+let body;
+let bodyItalic;
+let title;
+let titleItalic;
+let subtext;
+let nextButton;
+let cursorImg
+
+function preload() {
+  body = loadFont("assets/fonts/Regular.ttf");
+  bodyItalic = loadFont("assets/fonts/Italic.ttf");
+  title = loadFont("assets/fonts/Bold.ttf");
+  titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
+  subtext = loadFont("assets/fonts/Light.ttf");
+
+    cursorImg=loadImage("assets/pngs/cursor32.png", loadedCursor)
+}
+
+function loadedCursor(){
+    console.log("cursor: " ,cursorImg)
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -86,10 +111,23 @@ function setup() {
   vid = createCapture(VIDEO); //640 x 480
   // vid.size(480,480)
   vid.hide();
+  cursor(cursorImg,32,32)
+  image(cursorImg,width/2,height-20)
 
   doodleModel = ml5.imageClassifier("DoodleNet", doodleLoaded);
   handModel = ml5.handpose(vid, handLoaded);
   handModel.on("hand", gotPose);
+
+  nextButton = createButton("NEXT");
+  nextButton.mousePressed(temp);
+  nextButton.size(100, 50);
+  nextButton.position(width / 2, 400);
+  nextButton.style("background-color", "rgba(92,145,213,255)");
+  nextButton.style("border", "none");
+  nextButton.style("border-radius", "15px");
+  nextButton.style("font-style", "italic");
+  nextButton.style("font-family", "fonts/Italic.ttf");
+  nextButton.style("color", "white");
 }
 
 function handLoaded() {
@@ -97,31 +135,31 @@ function handLoaded() {
 }
 
 function doodleLoaded() {
-    console.log("doodleMode: ",doodleModel)
+  console.log("doodleMode: ", doodleModel);
 }
 
-function classifySketch(){
-    doodleModel.classify(sketch, gotLabel)
+function classifySketch() {
+  doodleModel.classify(sketch, gotLabel);
 }
 
-function gotLabel(err,results){
-        if (err){
-        console.log(err)
-        }
-        if (results){
-        console.log(results)
-        doodleResults = results
-    }
+function gotLabel(err, results) {
+  if (err) {
+    console.log(err);
+  }
+  if (results) {
+    console.log(results);
+    doodleResults = results;
+  }
 }
 
 function gotPose(results) {
-    handData = results;
-    // console.log(handData);
-    if (results.length > 0) {
-      index = results[0].annotations.indexFinger[3];
-      middle = results[0].annotations.middleFinger[3];
-    }
+  handData = results;
+  // console.log(handData);
+  if (results.length > 0) {
+    index = results[0].annotations.indexFinger[3];
+    middle = results[0].annotations.middleFinger[3];
   }
+}
 
 function draw() {
   switch (pages) {
@@ -147,10 +185,13 @@ function draw() {
 }
 
 function page1() {
+    cursor(cursorImg,32,32)
+
   background(220);
   noStroke();
   fill(0);
   text(tempText, width / 2, height / 2);
+  darkBlue(55, title, CENTER, "Testing Title", width / 2, 100);
 }
 
 function page2() {
@@ -178,10 +219,9 @@ function page3() {
 // image(vid,0,0)
   pop();
 
-
-  if (handData){
-    noStroke()
-    push()
+  if (handData) {
+    noStroke();
+    push();
     translate(vid.width, 0);
     scale(-1, 1);
     // let Xindex = index[0] - vid.width * 5 / 8
@@ -338,12 +378,15 @@ function switchPages() {
     // posArr.shift()
     console.log("posArr: ", posArr);
     // pages=5
-    setTimeout(() => {
-        page3to5()
-    }, sketchTime);
+    setInterval((pages = 5), sketchTime);
+  } else {
+    pages++;
+  }
+  if (pages == 3) {
+    // posArr.push([])
   }
   console.log(pages);
-  posArr = []
+  posArr = [];
 }
 
 function page3to4(){
@@ -396,8 +439,48 @@ function temp() {
 //         // posArr[posArr.length - 1].push(lineCoords);
 //         posArr.push(lineCoords);
 
-//     //   }
-//       console.log("posArr: ", posArr);
-//     }
-//   }
-// }
+      //   }
+      console.log("posArr: ", posArr);
+    }
+  }
+}
+
+function darkBlue(size, font, align, str = " ", x = 0, y = 0) {
+  fill(0, 75, 168);
+  textSize(size);
+  textFont(font);
+  textAlign(align);
+  text(str, x, y);
+}
+
+function medBlue(size, font, align, str = " ", x = 0, y = 0) {
+  fill(92, 145, 213);
+  textSize(size);
+  textFont(font);
+  textAlign(align);
+  text(str, x, y);
+}
+
+function lightBlue(size, font, align, str = " ", x = 0, y = 0) {
+  fill(186, 215, 255);
+  textSize(size);
+  textFont(font);
+  textAlign(align);
+  text(str, x, y);
+}
+
+function white(size, font, align, str = " ", x = 0, y = 0) {
+  fill(255);
+  textSize(size);
+  textFont(font);
+  textAlign(align);
+  text(str, x, y);
+}
+
+function black(size, font, align, str = " ", x = 0, y = 0) {
+  fill(0);
+  textSize(size);
+  textFont(font);
+  textAlign(align);
+  text(str, x, y);
+}
