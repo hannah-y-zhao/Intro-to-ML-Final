@@ -1,7 +1,9 @@
 body{
     margin:0;
-    
 }
 canvas{
     margin:0
+}
+#end{
+    display:none
 }

@@ -220,18 +220,18 @@ function page3() {
   pop();
 
   if (handData) {
-    noStroke();
-    push();
-    translate(vid.width, 0);
-    scale(-1, 1);
-    // let Xindex = index[0] - vid.width * 5 / 8
-    // let Yindex = index[1] + vid.height / 4
-    // let Xmiddle = middle[0] - vid.width * 5 / 8
-    // let Ymiddle = middle[1] + vid.height / 4
-    let Xindex = index[0]
-    let Yindex = index[1]
-    let Xmiddle = middle[0] 
-    let Ymiddle = middle[1] 
+    // noStroke();
+    // push();
+    // translate(vid.width, 0);
+    // scale(-1, 1);
+    // // let Xindex = index[0] - vid.width * 5 / 8
+    let Yindex = index[1] + vid.height / 4
+    // // let Xmiddle = middle[0] - vid.width * 5 / 8
+    let Ymiddle = middle[1] + vid.height / 4
+    let Xindex = vid.width-index[0] 
+    // let Yindex = index[1]
+    let Xmiddle = vid.width-middle[0] 
+    // let Ymiddle = middle[1] 
     fill('red')
     circle(Xindex, Yindex, 15)
     fill('blue')
@@ -280,7 +280,7 @@ function page3() {
         }
         console.log("posArr: ", posArr);
       }
-      pop()
+    //   pop()
       if (posArr.length>0){
         for (let i = 1; i < posArr.length; i++) {
             const previous = posArr[i - 1];
