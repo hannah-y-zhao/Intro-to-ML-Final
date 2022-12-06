@@ -1,9 +1,3 @@
-//timeout shorter for each one, 20-15-10
-//p5 speech to read out story at the end
-//saving images that are drawn
-//separate canvas
-
-//translate(vid.width,0) scale(-1,1) to flip video
 let pages = 1;
 let posArr = [];
 let lineCoords;
@@ -17,7 +11,8 @@ let doodleModel, doodleResults;
 let handModel, handData, index, middle;
 let tempArr = [];
 let madLibsArr = ["story1","story2","story3","story4","story5","story6","story7","story8","story9","story10",]
-let sketch1, sketch2, sketch3
+let sketch, sketch1, sketch2, sketch3
+let url1, url2, url3
 
 let body;
 let bodyItalic;
@@ -26,29 +21,34 @@ let titleItalic;
 let subtext;
 let nextButton;
 let cursorImg
+let timerImg
 
 let pg1, pg2, pg5, pg6
 let cnvs
 
 function preload() {
-  body = loadFont("assets/fonts/Regular.ttf");
-  bodyItalic = loadFont("assets/fonts/Italic.ttf");
-  title = loadFont("assets/fonts/Bold.ttf");
-  titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
-  subtext = loadFont("assets/fonts/Light.ttf");
+    body = loadFont("assets/fonts/Regular.ttf");
+    bodyItalic = loadFont("assets/fonts/Italic.ttf");
+    title = loadFont("assets/fonts/Bold.ttf");
+    titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
+    subtext = loadFont("assets/fonts/Light.ttf");
 
-    cursorImg=loadImage("assets/pngs/cursor32.png", loadedCursor)
+    cursorImg=loadImage("assets/pngs/cursor100.png", loadedCursor)
+    timerImg=loadImage("assets/pngs/timer.png",loadedTimer)
 }
 
 function loadedCursor(){
     console.log("cursor: " ,cursorImg)
 }
+function loadedTimer(){
+    console.log("timer: " ,timerImg)
+}
 
 function setup() {
   cnvs=createCanvas(480,480);
   cnvs.hide()
-  // rectMode(CENTER)
-  imageMode(CENTER);
+  rectMode(CORNER)
+  imageMode(CORNER)
   vid = createCapture(VIDEO); //640 x 480
   // vid.size(480,480)
   vid.hide();
@@ -62,16 +62,16 @@ function setup() {
   handModel = ml5.handpose(vid, handLoaded);
   handModel.on("hand", gotPose);
 
-  nextButton = createButton("NEXT");
-  nextButton.mousePressed(temp);
-  nextButton.size(100, 50);
-  nextButton.position(width / 2, 400);
-  nextButton.style("background-color", "rgba(92,145,213,255)");
-  nextButton.style("border", "none");
-  nextButton.style("border-radius", "15px");
-  nextButton.style("font-style", "italic");
-  nextButton.style("font-family", "fonts/Italic.ttf");
-  nextButton.style("color", "white");
+//   nextButton = createButton("NEXT");
+//   nextButton.mousePressed(temp);
+//   nextButton.size(100, 50);
+//   nextButton.position(width / 2, 400);
+//   nextButton.style("background-color", "rgba(92,145,213,255)");
+//   nextButton.style("border", "none");
+//   nextButton.style("border-radius", "15px");
+//   nextButton.style("font-style", "italic");
+//   nextButton.style("font-family", "fonts/Italic.ttf");
+//   nextButton.style("color", "white");
 }
 
 function handLoaded() {
@@ -79,11 +79,11 @@ function handLoaded() {
 }
 
 function doodleLoaded() {
-  console.log("doodleMode: ", doodleModel);
+  console.log("doodleModel: ", doodleModel);
 }
 
 function classifySketch() {
-  doodleModel.classify(sketch, gotLabel);
+  doodleModel.classify(cnvs, gotLabel);
 }
 
 function gotLabel(err, results) {
@@ -117,28 +117,16 @@ function draw() {
 }
 
 function page1() {
-//     cursor(cursorImg,32,32)
-
-//   background(220);
-//   noStroke();
-//   fill(0);
-//   text(tempText, width / 2, height / 2);
-//   darkBlue(55, title, CENTER, "Testing Title", width / 2, 100);
     pg1.style.display="flex"
 }
 
 function page2() {
-//   background(220);
-//   noStroke();
-//   fill(0);
-//   text("instructions", width / 2, height / 2);
     pg1.style.display="none"
     pg2=document.getElementById("page2")
     pg2.style.display="flex"
 }
 
 function page3() {
-  // console.log('page3')
   background(220);
 
   if (currentBlank) {
@@ -151,137 +139,75 @@ function page3() {
   push();
   translate(vid.width, 0);
   scale(-1, 1);
-  image(vid, -vid.width / 8, height / 2);
-// image(vid,0,0)
+  image(vid, 0, 0);
   pop();
 
   if (handData) {
-    // noStroke();
-    // push();
-    // translate(vid.width, 0);
-    // scale(-1, 1);
-    // // let Xindex = index[0] - vid.width * 5 / 8
-    let Yindex = index[1] + vid.height / 4
-    // // let Xmiddle = middle[0] - vid.width * 5 / 8
-    let Ymiddle = middle[1] + vid.height / 4
+    let Yindex = index[1]
+    let Ymiddle = middle[1]
     let Xindex = vid.width-index[0] 
-    // let Yindex = index[1]
     let Xmiddle = vid.width-middle[0] 
-    // let Ymiddle = middle[1] 
-    fill('red')
-    circle(Xindex, Yindex, 15)
-    fill('blue')
-    circle(Xmiddle, Ymiddle, 15)
+    // fill('red')
+    // circle(Xindex, Yindex, 15)
+    // fill('blue')
+    // circle(Xmiddle, Ymiddle, 15)
+    image(cursorImg,Xindex,Yindex)
 
-    //when set finger coords points, do width of video-x coord of finger
 
-    if (posArr.length){
-        for (let i = 1; i < posArr.length; i++) {
-            stroke(0);
-            strokeWeight(25);
-            line(posArr[i].px,posArr[i].py,posArr[i].x,posArr[i].y,)
-        }
-    }
-    console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
+    // if (posArr.length){
+    //     for (let i = 1; i < posArr.length; i++) {
+    //         stroke(0);
+    //         strokeWeight(25);
+    //         line(posArr[i].px,posArr[i].py,posArr[i].x,posArr[i].y,)
+    //     }
+    // }
+    // console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
     if (
-        // Xindex > width / 2 - vid.height / 2 &&
-        // Xindex < width / 2 + vid.height / 2 &&
-        // Yindex > height / 2 - vid.height / 2 && 
-        // Yindex < height / 2 + vid.height / 2 
-        Xindex > -width / 2 - vid.height / 2 &&
-        Xindex < -width / 2 + vid.height / 2 &&
+        Xindex > width / 2 - vid.height / 2 &&
+        Xindex < width / 2 + vid.height / 2 &&
         Yindex > height / 2 - vid.height / 2 && 
-        Yindex < height / 2 + vid.height / 2 
-        // Xindex > width / 2 - vid.height / 4 &&
-        // Xindex < width / 2 + vid.height / 4 &&
-        // Yindex > height / 2 - vid.height / 4 &&
-        // Yindex < height / 2 + vid.height / 4 &&
-        // Yindex < Ymiddle
+        Yindex < height / 2 + vid.height / 2 &&
+        Yindex < Ymiddle
       ) {
-        console.log('within square')
-        // let xy = {
-        //     x: Xindex,
-        //     y: Yindex
-        // }
-        // posArr.push(xy)
-        
-        lineCoords = {
-          px: pmouseX,
-          py: pmouseY,
-          x: mouseX,
-          y: mouseY,
-        };
-        if (posArr.length) {
-          posArr[posArr.length - 1].push(lineCoords);
+        // console.log('within square')
+        let xy = {
+            x: Xindex,
+            y: Yindex
         }
+        posArr.push(xy)
+        
+
         console.log("posArr: ", posArr);
       }
-    //   pop()
-      if (posArr.length>0){
+    if (posArr.length>0){
         for (let i = 1; i < posArr.length; i++) {
             const previous = posArr[i - 1];
             const current = posArr[i];
             stroke(0);
-            strokeWeight(25);
+            strokeWeight(16);
         
             line(previous.x, previous.y, current.x, current.y);
     
-            // circle(current.x, current.y, 27);
-          }
-      }
-  }
-
-
-  if (posArr.length > 0) {
-    for (i = 0; i < posArr[posArr.length - 1].length; i++) {
-      stroke("black");
-      strokeWeight(16);
-      line(
-        posArr[posArr.length - 1][i].px,
-        posArr[posArr.length - 1][i].py,
-        posArr[posArr.length - 1][i].x,
-        posArr[posArr.length - 1][i].y
-      );
+            }
+        }
     }
-  }
 }
 
 function page4() {
-  background(220);
+  background("#bad7ff");
   noStroke();
   fill(0);
   text("break", width / 2, height / 2);
 
-  // if (currentBlank<=totalBlanks){
-  //     setInterval(pages=3,3000)
-  //     currentBlank++
-  // } else if (currentBlank==totalBlanks){
-  //     setInterval(pages=5,3000)
-  // }
+    image(timerImg,width/4,height/2)
 }
 
 function page5() {
-//   background(220);
-//   noStroke();
-//   fill(0);
-//   text("pg 5", width / 2, height / 2);
-//   for (let i = 0; i < posArr.length; i++) {
-//     for (let j = 0; j < posArr[i].length; j++) {
-//       push();
-//       scale(0.5);
-//       circle(posArr[i][j].x + 500 * i, posArr[i][j].y, 5);
-//       pop();
-//     }
-//   }
     pg5=document.getElementById("pg5")
     pg5.style.display="flex"
 }
 
 function page6() {
-//   background(220);
-//   noStroke();
-//   fill(0);
-//   text("pg 6", width / 2, height / 2);
     pg5.style.display="none"
     pg6=document.getElementById("pg6")
     pg6.style.display="flex"
@@ -290,15 +216,20 @@ function page6() {
 function selectTopic() {
   currentBlank = 1;
   console.log("totalBlanks: ", totalBlanks);
-  tempText = random(madLibsArr);
+  const currentStory = random(madLibsArr);
+  sketch1=document.getElementById((currentStory.toString()+"img1"))
+  sketch2=document.getElementById((currentStory.toString()+"img2"))
+  sketch3=document.getElementById((currentStory.toString()+"img3"))
 }
 
 function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
     page2()
+    selectTopic()
     pages = 2;
   }  else if (pages==2) {
+    pg2.style.display="none"
     cnvs.show()
     page3()
     pages=3
@@ -342,15 +273,28 @@ function switchPages() {
 
 function page3to4(){
     background(255)
-    //draw pts
+
+    if (posArr.length>0){
+        for (let i = 1; i < posArr.length; i++) {
+            const previous = posArr[i - 1];
+            const current = posArr[i];
+            stroke(0);
+            strokeWeight(16);
+        
+            line(previous.x, previous.y, current.x, current.y);
+    
+        }
+    }
+    
+
     if (currentBlank==1){
-        sketch1 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        url1 = cnvs.toDataURL()
         console.log(sketch1)
     } else if (currentBlank==2){
-        sketch2 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        url2 = cnvs.toDataURL()
         console.log(sketch2)
     } else if (currentBlank==3){
-        sketch3 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        url3 = cnvs.toDataURL()
         console.log(sketch3)
     }
     classifySketch()
@@ -368,7 +312,9 @@ function page3to5(){
 }
 
 function organizeSketches(){
-
+    sketch1.src=url1
+    sketch2.src=url2
+    sketch3.src=url3
 }
 
 function keyPressed() {
