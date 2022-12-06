@@ -1,5 +1,6 @@
-body{
+html,body{
     margin:0;
+    height:100%;
 }
 canvas{
     margin:0;
@@ -7,21 +8,45 @@ canvas{
 }
 
 /* ----- BUTTONS ----- */
+button:hover{
+    cursor:pointer;
+}
+#button-page1{
+    background-color: #bad7ff;
+}
+#button-page2{
+    background-color: #5c91d5;
+}
 #button-restart{
-    background-color:#bad7ff;
-    padding:2rem;
+    background-color:white;
+    padding:3rem;
+    border:#004ba8 2px solid;
+    border-radius: 15px;
+    font-size:2rem;
 }
 
 /* ----- PAGES ----- */
 #page1{
-    display:block
+    display:flex;
+    width:100%;
+    height:100%;
 }
 #page2{
-    display:none
+    display:none;
+    width:100%;
+    height:100%;
 }
 #page5{
-    display:none
+    display:none;
+    width:100%;
+    height:100%;
 }
 #page6{
-    display:none
+    display:none;
+    width:100%;
+    height:100%;
+    justify-content:center;
+    align-items: center;
+
+    background-color:#bad7ff
 }

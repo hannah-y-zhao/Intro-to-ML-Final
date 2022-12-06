@@ -124,7 +124,7 @@ function page1() {
 //   fill(0);
 //   text(tempText, width / 2, height / 2);
 //   darkBlue(55, title, CENTER, "Testing Title", width / 2, 100);
-    pg1.style.display="block"
+    pg1.style.display="flex"
 }
 
 function page2() {
@@ -134,7 +134,7 @@ function page2() {
 //   text("instructions", width / 2, height / 2);
     pg1.style.display="none"
     pg2=document.getElementById("page2")
-    pg2.style.display="block"
+    pg2.style.display="flex"
 }
 
 function page3() {
@@ -274,7 +274,7 @@ function page5() {
 //     }
 //   }
     pg5=document.getElementById("pg5")
-    pg5.style.display="block"
+    pg5.style.display="flex"
 }
 
 function page6() {
@@ -284,7 +284,7 @@ function page6() {
 //   text("pg 6", width / 2, height / 2);
     pg5.style.display="none"
     pg6=document.getElementById("pg6")
-    pg6.style.display="block"
+    pg6.style.display="flex"
 }
 
 function selectTopic() {
@@ -307,7 +307,7 @@ function switchPages() {
     page6()
   }else if (pages==6){
     pages=1
-    
+
     //-------------RESET EVERYTHING HERE---------------------//
 
   }
