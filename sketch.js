@@ -8,79 +8,16 @@ let pages = 1;
 let posArr = [];
 let lineCoords;
 let blanksArr = [2, 3];
-let currentBlank, totalBlanks;
+let currentBlank
+let totalBlanks=3
 let tempText = "press t";
 let sketchTime = 20000;
 let vid;
-let doodleModel, doodleResults, sketch;
+let doodleModel, doodleResults;
 let handModel, handData, index, middle;
 let tempArr = [];
-let madLibsArr = [
-  [
-    ["Someone I know recently combined "],
-    [" flavored Syrup & "],
-    [". Popcorn thinking it would be a nice desert. It tasted like "],
-    [" and they don't recommend anyone else try it either."],
-  ],
-  [
-    ["Hang on, the "],
-    ["(s) are scratching at the "],
-    [" and they'll be upset by the lack of "],
-    ["(s)."],
-  ],
-  [
-    ["Most "],
-    [" attacks occur about 10 feet from the "],
-    [" since that's where all the "],
-    ["(s) are."],
-  ],
-  [
-    ["I asked for some "],
-    [
-      "(s) for Christmas but Santa returned my letter and said I already have too many ",
-    ],
-    ["(s)! He gave me a(n) "],
-    ["instead."],
-  ],
-  [
-    ["Just the sight of his "],
-    [" made me want to run and hide under my mom's "],
-    ["... I haven't been that scared since I first saw a(n) "],
-    ["."],
-  ],
-  [
-    ["She wanted a pet "],
-    [" but ended up getting a(n) "],
-    [" and a(n) "],
-    [" instead."],
-  ],
-  [
-    ["Written "],
-    ["(s) in instruction "],
-    ["(s) are worthless since "],
-    ["(s) can't read."],
-  ],
-  [
-    ["There aren't enough "],
-    ["(s) in the world to stop the "],
-    [" that's coming out of his "],
-    ["."],
-  ],
-  [
-    [
-      "She's been eyeing them all day and waiting to make her move like a wild ",
-    ],
-    [" stalking a(n) "],
-    [" in the "],
-    ["."],
-  ],
-  [
-    ["He embraced his new life as a(n) "],
-    [". Although he thought there would be more "],
-    ["(s) involved, "],
-    ["(s) are okay too."],
-  ],
-];
+let madLibsArr = ["story1","story2","story3","story4","story5","story6","story7","story8","story9","story10",]
+let sketch1, sketch2, sketch3
 
 let body;
 let bodyItalic;
@@ -89,6 +26,9 @@ let titleItalic;
 let subtext;
 let nextButton;
 let cursorImg
+
+let pg1, pg2, pg5, pg6
+let cnvs
 
 function preload() {
   body = loadFont("assets/fonts/Regular.ttf");
@@ -105,7 +45,8 @@ function loadedCursor(){
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  cnvs=createCanvas(480,480);
+  cnvs.hide()
   // rectMode(CENTER)
   imageMode(CENTER);
   vid = createCapture(VIDEO); //640 x 480
@@ -113,6 +54,9 @@ function setup() {
   vid.hide();
   cursor(cursorImg,32,32)
   image(cursorImg,width/2,height-20)
+
+  pg1=document.getElementById("page1")
+
 
   doodleModel = ml5.imageClassifier("DoodleNet", doodleLoaded);
   handModel = ml5.handpose(vid, handLoaded);
@@ -163,42 +107,34 @@ function gotPose(results) {
 
 function draw() {
   switch (pages) {
-    case 1:
-      page1();
-      break;
-    case 2:
-      page2();
-      break;
     case 3:
       page3();
       break;
     case 4:
       page4();
       break;
-    case 5:
-      page5();
-      break;
-    case 6:
-      page6();
-      break;
   }
 }
 
 function page1() {
-    cursor(cursorImg,32,32)
+//     cursor(cursorImg,32,32)
 
-  background(220);
-  noStroke();
-  fill(0);
-  text(tempText, width / 2, height / 2);
-  darkBlue(55, title, CENTER, "Testing Title", width / 2, 100);
+//   background(220);
+//   noStroke();
+//   fill(0);
+//   text(tempText, width / 2, height / 2);
+//   darkBlue(55, title, CENTER, "Testing Title", width / 2, 100);
+    pg1.style.display="block"
 }
 
 function page2() {
-  background(220);
-  noStroke();
-  fill(0);
-  text("instructions", width / 2, height / 2);
+//   background(220);
+//   noStroke();
+//   fill(0);
+//   text("instructions", width / 2, height / 2);
+    pg1.style.display="none"
+    pg2=document.getElementById("page2")
+    pg2.style.display="block"
 }
 
 function page3() {
@@ -325,42 +261,57 @@ function page4() {
 }
 
 function page5() {
-  background(220);
-  noStroke();
-  fill(0);
-  text("pg 5", width / 2, height / 2);
-  for (let i = 0; i < posArr.length; i++) {
-    for (let j = 0; j < posArr[i].length; j++) {
-      push();
-      scale(0.5);
-      circle(posArr[i][j].x + 500 * i, posArr[i][j].y, 5);
-      pop();
-    }
-  }
+//   background(220);
+//   noStroke();
+//   fill(0);
+//   text("pg 5", width / 2, height / 2);
+//   for (let i = 0; i < posArr.length; i++) {
+//     for (let j = 0; j < posArr[i].length; j++) {
+//       push();
+//       scale(0.5);
+//       circle(posArr[i][j].x + 500 * i, posArr[i][j].y, 5);
+//       pop();
+//     }
+//   }
+    pg5=document.getElementById("pg5")
+    pg5.style.display="block"
 }
 
 function page6() {
-  background(220);
-  noStroke();
-  fill(0);
-  text("pg 6", width / 2, height / 2);
+//   background(220);
+//   noStroke();
+//   fill(0);
+//   text("pg 6", width / 2, height / 2);
+    pg5.style.display="none"
+    pg6=document.getElementById("pg6")
+    pg6.style.display="block"
 }
 
 function selectTopic() {
-  totalBlanks = random(blanksArr);
   currentBlank = 1;
   console.log("totalBlanks: ", totalBlanks);
-  tempText = totalBlanks;
+  tempText = random(madLibsArr);
 }
 
 function switchPages() {
-  if (pages == 6) {
-    tempText = "press t";
-    pages = 1;
-  }  else {
-    pages++;
+  if (pages == 1) {
+    // tempText = "press t";
+    page2()
+    pages = 2;
+  }  else if (pages==2) {
+    cnvs.show()
+    page3()
+    pages=3
+  } else if (pages==5){
+    cnvs.hide()
+    page6()
+  }else if (pages==6){
+    pages=1
+    
+    //-------------RESET EVERYTHING HERE---------------------//
+
   }
-  console.log("currentBlank: ",currentBlank, "totalBlanks: ",totalBlanks)
+  console.log("currentBlank: ",currentBlank, "totalBlanks: ",totalBlanks,"pages",pages)
   if (currentBlank < totalBlanks && pages == 3) {
     // posArr.push([])
     console.log("something is happening")
@@ -378,23 +329,31 @@ function switchPages() {
     // posArr.shift()
     console.log("posArr: ", posArr);
     // pages=5
-    setInterval((pages = 5), sketchTime);
-  } else {
-    pages++;
+    setInterval(() => {
+        page3to5();
+      }, sketchTime);
   }
   if (pages == 3) {
     // posArr.push([])
   }
-  console.log(pages);
+  console.log("pages",pages);
   posArr = [];
 }
 
 function page3to4(){
     background(255)
     //draw pts
-    sketch = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+    if (currentBlank==1){
+        sketch1 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        console.log(sketch1)
+    } else if (currentBlank==2){
+        sketch2 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        console.log(sketch2)
+    } else if (currentBlank==3){
+        sketch3 = get(width/2-vid.width/2,height/2-vid.height/2,vid.width,vid.height)
+        console.log(sketch3)
+    }
     classifySketch()
-    console.log(sketch)
     switchPages()
 }
 
@@ -404,8 +363,12 @@ function page4to3(){
 }
 
 function page3to5(){
-    pages=4
-    switchPages()
+    organizeSketches()
+    page5()
+}
+
+function organizeSketches(){
+
 }
 
 function keyPressed() {

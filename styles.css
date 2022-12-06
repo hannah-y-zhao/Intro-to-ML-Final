@@ -2,8 +2,26 @@ body{
     margin:0;
 }
 canvas{
-    margin:0
+    margin:0;
+    display:block;
 }
-#end{
+
+/* ----- BUTTONS ----- */
+#button-restart{
+    background-color:#bad7ff;
+    padding:2rem;
+}
+
+/* ----- PAGES ----- */
+#page1{
+    display:block
+}
+#page2{
+    display:none
+}
+#page5{
+    display:none
+}
+#page6{
     display:none
 }
