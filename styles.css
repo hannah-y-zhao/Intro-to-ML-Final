@@ -4,21 +4,59 @@ html,body{
     width:100%;
     justify-content:center;
     align-items: center;
+    font-family: 'Tahoma', sans-serif;
+    text-align: center;
 }
+
 canvas{
     margin:0;
-    /* display:block; */
+    display:block;
+}
+.dark-blue{
+    color:#004ba8;
+    font-size: 133px;
+}
+.med-blue{
+    color:#5c91d5;
+    font-size: 33px;
+}
+.light-blue{
+    color:#bad7ff;
+    font-size: 33px;
+}
+.white{
+    color:white;
+    font-size: 133px;
+}
+.black{
+    color:black;
+    font-size: 33px;
 }
 
 /* ----- BUTTONS ----- */
 button:hover{
     cursor:pointer;
+    background-color: #004ba8;
 }
 #button-page1{
     background-color: #bad7ff;
+    color:#004ba8;
+    border: none;
+    text-align: center;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 33px;
+    border-radius: 15px;
+    padding: 16px 32px;
 }
 #button-page2{
-    background-color: #5c91d5;
+    background-color: #bad7ff;
+    color:#004ba8;
+    border: none;
+    text-align: center;
+    font-family: 'Tahoma', sans-serif;
+    font-size: 33px;
+    border-radius: 15px;
+    padding:3rem;
 }
 #button-restart{
     background-color:white;
@@ -26,6 +64,7 @@ button:hover{
     border:#004ba8 2px solid;
     border-radius: 15px;
     font-size:2rem;
+    font-family: 'Tahoma', sans-serif;
 }
 img{
     width:50%;
@@ -41,6 +80,7 @@ img{
     display:none;
     width:100%;
     height:100%;
+    background-color: #bad7ff;
 }
 #page3{
     display:none;
@@ -60,36 +100,4 @@ img{
     align-items: center;
 
     background-color:#bad7ff
-}
-
-/* ----- STORIES ----- */
-#story1{
-    display:none 
-}
-#story2{
-    display:none 
-}
-#story3{
-    display:none 
-}
-#story4{
-    display:none 
-}
-#story5{
-    display:none 
-}
-#story6{
-    display:none 
-}
-#story7{
-    display:none 
-}
-#story8{
-    display:none 
-}
-#story9{
-    display:none 
-}
-#story10{
-    display:none 
 }

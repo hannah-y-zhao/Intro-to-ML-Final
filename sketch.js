@@ -23,6 +23,18 @@ let madLibsArr = [
   "story10",
 ];
 let labelsArr = [];
+let promptsArr = [
+  "A Food",
+  "An Animal",
+  "Something you'd find in nature",
+  "Something you use",
+  "A form of transportation",
+  "Something you'd wear",
+  "A shape",
+  "An Occupation",
+  "A Place",
+];
+let currentPrompt = random(promptsArr); 
 let currentStory;
 let sketch, sketch1, sketch2, sketch3;
 let label1, label2, label3;
