@@ -26,6 +26,9 @@ button:hover{
     border-radius: 15px;
     font-size:2rem;
 }
+img{
+    width:50%;
+}
 
 /* ----- PAGES ----- */
 #page1{
