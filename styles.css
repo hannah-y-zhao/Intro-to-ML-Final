@@ -1,7 +1,9 @@
 html,body{
     margin:0;
     height:100%;
+    font-family: 'Tahoma', sans-serif;
 }
+
 canvas{
     margin:0;
     display:block;
@@ -35,6 +37,7 @@ button:hover{
     display:none;
     width:100%;
     height:100%;
+    background-color: #bad7ff;
 }
 #page5{
     display:none;
