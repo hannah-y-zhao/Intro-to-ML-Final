@@ -13,10 +13,27 @@
     <script src = "sketch.js"></script>
     <div id="page1">
         page1
+        <div class = "dark-blue"> <i><strong>
+            Quick</i>, Mad Libs!
+        </strong> <br> <font size="6">
+        Use your index finger to draw the prompt in time to create an original Mad Libs story! </font>
+        </div> <br>
         <button type="button" onclick="switchPages()" id="button-page1">I'm Ready!</button>
     </div>
     <div id="page2">
         page2
+        <div class = "dark-blue"> 
+            <font size="3">
+                Drawing <div id="currentBlank"> /3 <br>
+            </font>
+            <font size="6">
+                Draw: <br>
+            </font>
+           A(n) Animal <br>
+           <font size="6">
+            in <div id = "sketchTime"> ? </div> seconds <br>
+        </font>
+        </div>
         <button type="button" onclick="switchPages()" id="button-page2"><i>Got it!</i> >>></button>
     </div>
     <div id="page5">
@@ -147,5 +164,6 @@
     <div id="page6">
         <button type="button" onclick="switchPages()" id = "button-restart"><i>Play again?</i></button>
     </div>
+
 </body>
 </html>
