@@ -37,8 +37,9 @@ let nextButton;
 let cursorImg;
 let timerImg;
 
-let pg1, pg2, pg5, pg6;
+let pg1, pg2, pg3, pg5, pg6;
 let cnvs;
+let timeInterval
 
 function preload() {
   body = loadFont("assets/fonts/Regular.ttf");
@@ -59,6 +60,7 @@ function loadedTimer() {
 }
 
 function setup() {
+    cnvs=document.getElementById("p5canvas")
   cnvs = createCanvas(480, 480);
   cnvs.hide();
   rectMode(CORNER);
@@ -134,7 +136,7 @@ function gotLabel(err, results) {
   if (labelsArr.length == 3) {
     page5();
   }
-  cnvs.hide();
+//   cnvs.hide();
 }
 
 function gotPose(results) {
@@ -245,7 +247,7 @@ function page4() {
   fill(0);
   text("break", width / 2, height / 2);
 
-  image(timerImg, width / 4, height / 2);
+  image(timerImg, width / 4, height / 2,200,200);
 }
 
 function page5() {
@@ -273,6 +275,17 @@ function selectTopic() {
   console.log(currentStory);
 }
 
+function countdown(){
+    let countdownVal=sketchTime
+    if (countdownVal>0){
+        countdownVal--
+    }else if (countdownVal==0){
+        clearInterval(timeInterval)
+    }
+    const countdownTxt=document.getElementById("countdown-text")
+    countdownTxt.innerHTML=countdownVal
+}
+
 function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
@@ -281,9 +294,12 @@ function switchPages() {
     pages = 2;
   } else if (pages == 2) {
     pg2.style.display = "none";
+    pg3 = document.getElementById("page3");
+    pg3.style.display = "flex";
     cnvs.show();
     page3();
     pages = 3;
+    timeInterval = setInterval(countdown, 1000);
   } else if (pages == 5) {
     cnvs.hide();
     page6();
