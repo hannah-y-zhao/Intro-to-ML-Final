@@ -11,7 +11,10 @@ let doodleModel, doodleResults;
 let handModel, handData, index, middle;
 let tempArr = [];
 let madLibsArr = ["story1","story2","story3","story4","story5","story6","story7","story8","story9","story10",]
+let labelsArr=[]
+let currentStory
 let sketch, sketch1, sketch2, sketch3
+let label1, label2, label3
 let url1, url2, url3
 
 let body;
@@ -83,7 +86,21 @@ function doodleLoaded() {
 }
 
 function classifySketch() {
+    background(255)
+
+    if (posArr.length>0){
+        for (let i = 1; i < posArr.length; i++) {
+            const previous = posArr[i - 1];
+            const current = posArr[i];
+            stroke(0);
+            strokeWeight(16);
+        
+            line(previous.x, previous.y, current.x, current.y);
+    
+        }
+    }
   doodleModel.classify(cnvs, gotLabel);
+  console.log(cnvs)
 }
 
 function gotLabel(err, results) {
@@ -91,9 +108,11 @@ function gotLabel(err, results) {
     console.log(err);
   }
   if (results) {
-    console.log(results);
+    console.log("results: ",results);
     doodleResults = results;
   }
+  labelsArr.push([doodleResults[0].label,doodleResults[1].label,doodleResults[2].label])
+  console.log("labelsArr: ",labelsArr)
 }
 
 function gotPose(results) {
@@ -177,7 +196,7 @@ function page3() {
         posArr.push(xy)
         
 
-        console.log("posArr: ", posArr);
+        // console.log("posArr: ", posArr);
       }
     if (posArr.length>0){
         for (let i = 1; i < posArr.length; i++) {
@@ -203,20 +222,22 @@ function page4() {
 }
 
 function page5() {
-    pg5=document.getElementById("pg5")
+    pg5=document.getElementById("page5")
+    
     pg5.style.display="flex"
+    organizeSketches()
 }
 
 function page6() {
     pg5.style.display="none"
-    pg6=document.getElementById("pg6")
+    pg6=document.getElementById("page6")
     pg6.style.display="flex"
 }
 
 function selectTopic() {
   currentBlank = 1;
   console.log("totalBlanks: ", totalBlanks);
-  const currentStory = random(madLibsArr);
+currentStory = random(madLibsArr);
   sketch1=document.getElementById((currentStory.toString()+"img1"))
   sketch2=document.getElementById((currentStory.toString()+"img2"))
   sketch3=document.getElementById((currentStory.toString()+"img3"))
@@ -260,7 +281,7 @@ function switchPages() {
     // posArr.shift()
     console.log("posArr: ", posArr);
     // pages=5
-    setInterval(() => {
+    setTimeout(() => {
         page3to5();
       }, sketchTime);
   }
@@ -288,16 +309,17 @@ function page3to4(){
     
 
     if (currentBlank==1){
-        url1 = cnvs.toDataURL()
-        console.log(sketch1)
+        url1 = canvas.toDataURL()
+        console.log(sketch1,url1)
     } else if (currentBlank==2){
-        url2 = cnvs.toDataURL()
-        console.log(sketch2)
+        url2 = canvas.toDataURL()
+        console.log(sketch2,url2)
     } else if (currentBlank==3){
-        url3 = cnvs.toDataURL()
-        console.log(sketch3)
+        url3 = canvas.toDataURL()
+        console.log(sketch3,url3)
     }
     classifySketch()
+    pages=4
     switchPages()
 }
 
@@ -307,14 +329,41 @@ function page4to3(){
 }
 
 function page3to5(){
-    organizeSketches()
+    background(255)
+
+    if (posArr.length>0){
+        for (let i = 1; i < posArr.length; i++) {
+            const previous = posArr[i - 1];
+            const current = posArr[i];
+            stroke(0);
+            strokeWeight(16);
+        
+            line(previous.x, previous.y, current.x, current.y);
+    
+        }
+    }
+    url3 = canvas.toDataURL()
+    console.log(sketch3,url3)
+    classifySketch()
+    cnvs.hide()
     page5()
 }
 
 function organizeSketches(){
-    sketch1.src=url1
-    sketch2.src=url2
-    sketch3.src=url3
+    if (labelsArr[0][2]){
+        sketch1.src=url1
+        sketch2.src=url2
+        sketch3.src=url3
+        label1=document.getElementById((currentStory.toString()+"blank1"))
+        label1.innerHTML=labelsArr[0][0]
+        label2=document.getElementById((currentStory.toString()+"blank1"))
+        label2.innerHTML=labelsArr[1][0]
+        label3=document.getElementById((currentStory.toString()+"blank1"))
+        label3.innerHTML=labelsArr[2][0]
+    }
+}
+
+function cycleLabels(){
 }
 
 function keyPressed() {
@@ -349,7 +398,7 @@ function temp() {
 //         posArr.push(lineCoords);
 
       //   }
-      console.log("posArr: ", posArr);
+    //   console.log("posArr: ", posArr);
 //     }
 //   }
 // }
