@@ -2,20 +2,31 @@ let pages = 1;
 let posArr = [];
 let lineCoords;
 let blanksArr = [2, 3];
-let currentBlank
-let totalBlanks=3
+let currentBlank;
+let totalBlanks = 3;
 let tempText = "press t";
 let sketchTime = 20000;
 let vid;
 let doodleModel, doodleResults;
 let handModel, handData, index, middle;
 let tempArr = [];
-let madLibsArr = ["story1","story2","story3","story4","story5","story6","story7","story8","story9","story10",]
-let labelsArr=[]
-let currentStory
-let sketch, sketch1, sketch2, sketch3
-let label1, label2, label3
-let url1, url2, url3
+let madLibsArr = [
+  "story1",
+  "story2",
+  "story3",
+  "story4",
+  "story5",
+  "story6",
+  "story7",
+  "story8",
+  "story9",
+  "story10",
+];
+let labelsArr = [];
+let currentStory;
+let sketch, sketch1, sketch2, sketch3;
+let label1, label2, label3;
+let url1, url2, url3;
 
 let body;
 let bodyItalic;
@@ -23,58 +34,57 @@ let title;
 let titleItalic;
 let subtext;
 let nextButton;
-let cursorImg
-let timerImg
+let cursorImg;
+let timerImg;
 
-let pg1, pg2, pg5, pg6
-let cnvs
+let pg1, pg2, pg5, pg6;
+let cnvs;
 
 function preload() {
-    body = loadFont("assets/fonts/Regular.ttf");
-    bodyItalic = loadFont("assets/fonts/Italic.ttf");
-    title = loadFont("assets/fonts/Bold.ttf");
-    titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
-    subtext = loadFont("assets/fonts/Light.ttf");
+  body = loadFont("assets/fonts/Regular.ttf");
+  bodyItalic = loadFont("assets/fonts/Italic.ttf");
+  title = loadFont("assets/fonts/Bold.ttf");
+  titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
+  subtext = loadFont("assets/fonts/Light.ttf");
 
-    cursorImg=loadImage("assets/pngs/cursor100.png", loadedCursor)
-    timerImg=loadImage("assets/pngs/timer.png",loadedTimer)
+  cursorImg = loadImage("assets/pngs/cursor100.png", loadedCursor);
+  timerImg = loadImage("assets/pngs/timer.png", loadedTimer);
 }
 
-function loadedCursor(){
-    console.log("cursor: " ,cursorImg)
+function loadedCursor() {
+  console.log("cursor: ", cursorImg);
 }
-function loadedTimer(){
-    console.log("timer: " ,timerImg)
+function loadedTimer() {
+  console.log("timer: ", timerImg);
 }
 
 function setup() {
-  cnvs=createCanvas(480,480);
-  cnvs.hide()
-  rectMode(CORNER)
-  imageMode(CORNER)
+  cnvs = createCanvas(480, 480);
+  cnvs.hide();
+  rectMode(CORNER);
+  imageMode(CORNER);
   vid = createCapture(VIDEO); //640 x 480
   // vid.size(480,480)
   vid.hide();
-  cursor(cursorImg,32,32)
-  image(cursorImg,width/2,height-20)
+  cursor(cursorImg, 32, 32);
+  image(cursorImg, width / 2, height - 20);
 
-  pg1=document.getElementById("page1")
-
+  pg1 = document.getElementById("page1");
 
   doodleModel = ml5.imageClassifier("DoodleNet", doodleLoaded);
   handModel = ml5.handpose(vid, handLoaded);
   handModel.on("hand", gotPose);
 
-//   nextButton = createButton("NEXT");
-//   nextButton.mousePressed(temp);
-//   nextButton.size(100, 50);
-//   nextButton.position(width / 2, 400);
-//   nextButton.style("background-color", "rgba(92,145,213,255)");
-//   nextButton.style("border", "none");
-//   nextButton.style("border-radius", "15px");
-//   nextButton.style("font-style", "italic");
-//   nextButton.style("font-family", "fonts/Italic.ttf");
-//   nextButton.style("color", "white");
+  //   nextButton = createButton("NEXT");
+  //   nextButton.mousePressed(temp);
+  //   nextButton.size(100, 50);
+  //   nextButton.position(width / 2, 400);
+  //   nextButton.style("background-color", "rgba(92,145,213,255)");
+  //   nextButton.style("border", "none");
+  //   nextButton.style("border-radius", "15px");
+  //   nextButton.style("font-style", "italic");
+  //   nextButton.style("font-family", "fonts/Italic.ttf");
+  //   nextButton.style("color", "white");
 }
 
 function handLoaded() {
@@ -86,21 +96,20 @@ function doodleLoaded() {
 }
 
 function classifySketch() {
-    background(255)
+  background(255);
 
-    if (posArr.length>0){
-        for (let i = 1; i < posArr.length; i++) {
-            const previous = posArr[i - 1];
-            const current = posArr[i];
-            stroke(0);
-            strokeWeight(16);
-        
-            line(previous.x, previous.y, current.x, current.y);
-    
-        }
+  if (posArr.length > 0) {
+    for (let i = 1; i < posArr.length; i++) {
+      const previous = posArr[i - 1];
+      const current = posArr[i];
+      stroke(0);
+      strokeWeight(16);
+
+      line(previous.x, previous.y, current.x, current.y);
     }
+  }
   doodleModel.classify(cnvs, gotLabel);
-  console.log(cnvs)
+  console.log(cnvs);
 }
 
 function gotLabel(err, results) {
@@ -108,11 +117,24 @@ function gotLabel(err, results) {
     console.log(err);
   }
   if (results) {
-    console.log("results: ",results);
+    console.log("results: ", results);
     doodleResults = results;
   }
-  labelsArr.push([doodleResults[0].label,doodleResults[1].label,doodleResults[2].label])
-  console.log("labelsArr: ",labelsArr)
+  console.log("labelsArr: ", labelsArr);
+  console.log(
+    doodleResults[0].label,
+    doodleResults[1].label,
+    doodleResults[2].label
+  );
+  labelsArr.push([
+    doodleResults[0].label,
+    doodleResults[1].label,
+    doodleResults[2].label,
+  ]);
+  if (labelsArr.length == 3) {
+    page5();
+  }
+  cnvs.hide();
 }
 
 function gotPose(results) {
@@ -136,13 +158,13 @@ function draw() {
 }
 
 function page1() {
-    pg1.style.display="flex"
+  pg1.style.display = "flex";
 }
 
 function page2() {
-    pg1.style.display="none"
-    pg2=document.getElementById("page2")
-    pg2.style.display="flex"
+  pg1.style.display = "none";
+  pg2 = document.getElementById("page2");
+  pg2.style.display = "flex";
 }
 
 function page3() {
@@ -162,16 +184,15 @@ function page3() {
   pop();
 
   if (handData) {
-    let Yindex = index[1]
-    let Ymiddle = middle[1]
-    let Xindex = vid.width-index[0] 
-    let Xmiddle = vid.width-middle[0] 
+    let Yindex = index[1];
+    let Ymiddle = middle[1];
+    let Xindex = vid.width - index[0];
+    let Xmiddle = vid.width - middle[0];
     // fill('red')
     // circle(Xindex, Yindex, 15)
     // fill('blue')
     // circle(Xmiddle, Ymiddle, 15)
-    image(cursorImg,Xindex,Yindex)
-
+    image(cursorImg, Xindex, Yindex);
 
     // if (posArr.length){
     //     for (let i = 1; i < posArr.length; i++) {
@@ -182,91 +203,106 @@ function page3() {
     // }
     // console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
     if (
-        Xindex > width / 2 - vid.height / 2 &&
-        Xindex < width / 2 + vid.height / 2 &&
-        Yindex > height / 2 - vid.height / 2 && 
-        Yindex < height / 2 + vid.height / 2 &&
-        Yindex < Ymiddle
-      ) {
-        // console.log('within square')
-        let xy = {
-            x: Xindex,
-            y: Yindex
-        }
-        posArr.push(xy)
-        
+      Xindex > width / 2 - vid.height / 2 &&
+      Xindex < width / 2 + vid.height / 2 &&
+      Yindex > height / 2 - vid.height / 2 &&
+      Yindex < height / 2 + vid.height / 2 &&
+      Yindex < Ymiddle
+    ) {
+      // console.log('within square')
+      let xy = {
+        x: Xindex,
+        y: Yindex,
+      };
+      posArr.push(xy);
 
-        // console.log("posArr: ", posArr);
-      }
-    if (posArr.length>0){
-        for (let i = 1; i < posArr.length; i++) {
-            const previous = posArr[i - 1];
-            const current = posArr[i];
-            stroke(0);
-            strokeWeight(16);
-        
-            line(previous.x, previous.y, current.x, current.y);
-    
-            }
-        }
+      // console.log("posArr: ", posArr);
+    } else if (Yindex >= Ymiddle && posArr.length>0&& posArr[posArr.length - 1].x > 0) {
+      const invalid = {
+        x: -1,
+        y: -1,
+      };
+      posArr.push(invalid);
     }
+    if (posArr.length > 0) {
+      for (let i = 1; i < posArr.length; i++) {
+        const previous = posArr[i - 1];
+        const current = posArr[i];
+        stroke(0);
+        strokeWeight(16);
+
+        if (previous.x >= 0 && current.x >= 0) {
+          line(previous.x, previous.y, current.x, current.y);
+        }
+      }
+    }
+  }
 }
 
 function page4() {
-  background("#bad7ff");
+  background("#5c91d5");
   noStroke();
   fill(0);
   text("break", width / 2, height / 2);
 
-    image(timerImg,width/4,height/2)
+  image(timerImg, width / 4, height / 2);
 }
 
 function page5() {
-    pg5=document.getElementById("page5")
-    
-    pg5.style.display="flex"
-    organizeSketches()
+  pg5 = document.getElementById("page5");
+  const thisStory=document.getElementById("story5")
+  thisStory.style.display="block"
+
+  pg5.style.display = "flex";
+  organizeSketches();
 }
 
 function page6() {
-    pg5.style.display="none"
-    pg6=document.getElementById("page6")
-    pg6.style.display="flex"
+  pg5.style.display = "none";
+  pg6 = document.getElementById("page6");
+  pg6.style.display = "flex";
 }
 
 function selectTopic() {
   currentBlank = 1;
   console.log("totalBlanks: ", totalBlanks);
-currentStory = random(madLibsArr);
-  sketch1=document.getElementById((currentStory.toString()+"img1"))
-  sketch2=document.getElementById((currentStory.toString()+"img2"))
-  sketch3=document.getElementById((currentStory.toString()+"img3"))
+  currentStory = random(madLibsArr);
+  sketch1 = document.getElementById(currentStory.toString() + "img1");
+  sketch2 = document.getElementById(currentStory.toString() + "img2");
+  sketch3 = document.getElementById(currentStory.toString() + "img3");
+  console.log(currentStory);
 }
 
 function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
-    page2()
-    selectTopic()
+    page2();
+    selectTopic();
     pages = 2;
-  }  else if (pages==2) {
-    pg2.style.display="none"
-    cnvs.show()
-    page3()
-    pages=3
-  } else if (pages==5){
-    cnvs.hide()
-    page6()
-  }else if (pages==6){
-    pages=1
+  } else if (pages == 2) {
+    pg2.style.display = "none";
+    cnvs.show();
+    page3();
+    pages = 3;
+  } else if (pages == 5) {
+    cnvs.hide();
+    page6();
+  } else if (pages == 6) {
+    pages = 1;
 
     //-------------RESET EVERYTHING HERE---------------------//
-
   }
-  console.log("currentBlank: ",currentBlank, "totalBlanks: ",totalBlanks,"pages",pages)
+  console.log(
+    "currentBlank: ",
+    currentBlank,
+    "totalBlanks: ",
+    totalBlanks,
+    "pages",
+    pages
+  );
   if (currentBlank < totalBlanks && pages == 3) {
     // posArr.push([])
-    console.log("something is happening")
+    console.log("something is happening");
     setTimeout(() => {
       page3to4();
     }, sketchTime);
@@ -282,89 +318,82 @@ function switchPages() {
     console.log("posArr: ", posArr);
     // pages=5
     setTimeout(() => {
-        page3to5();
-      }, sketchTime);
+      page3to5();
+    }, sketchTime);
   }
   if (pages == 3) {
     // posArr.push([])
   }
-  console.log("pages",pages);
+  console.log("pages", pages);
   posArr = [];
 }
 
-function page3to4(){
-    background(255)
+function page3to4() {
+  background(255);
 
-    if (posArr.length>0){
-        for (let i = 1; i < posArr.length; i++) {
-            const previous = posArr[i - 1];
-            const current = posArr[i];
-            stroke(0);
-            strokeWeight(16);
-        
-            line(previous.x, previous.y, current.x, current.y);
-    
-        }
+  if (posArr.length > 0) {
+    for (let i = 1; i < posArr.length; i++) {
+      const previous = posArr[i - 1];
+      const current = posArr[i];
+      stroke(0);
+      strokeWeight(16);
+
+      line(previous.x, previous.y, current.x, current.y);
     }
-    
+  }
 
-    if (currentBlank==1){
-        url1 = canvas.toDataURL()
-        console.log(sketch1,url1)
-    } else if (currentBlank==2){
-        url2 = canvas.toDataURL()
-        console.log(sketch2,url2)
-    } else if (currentBlank==3){
-        url3 = canvas.toDataURL()
-        console.log(sketch3,url3)
+  if (currentBlank == 1) {
+    url1 = canvas.toDataURL();
+    console.log(sketch1, url1);
+  } else if (currentBlank == 2) {
+    url2 = canvas.toDataURL();
+    console.log(sketch2, url2);
+  } else if (currentBlank == 3) {
+    url3 = canvas.toDataURL();
+    console.log(sketch3, url3);
+  }
+  classifySketch();
+  pages = 4;
+  switchPages();
+}
+
+function page4to3() {
+  pages = 2;
+  switchPages();
+}
+
+function page3to5() {
+  background(255);
+
+  if (posArr.length > 0) {
+    for (let i = 1; i < posArr.length; i++) {
+      const previous = posArr[i - 1];
+      const current = posArr[i];
+      stroke(0);
+      strokeWeight(16);
+
+      line(previous.x, previous.y, current.x, current.y);
     }
-    classifySketch()
-    pages=4
-    switchPages()
+  }
+  url3 = canvas.toDataURL();
+  console.log(sketch3, url3);
+  classifySketch();
+  // page5()
 }
 
-function page4to3(){
-    pages=2
-    switchPages()
+function organizeSketches() {
+  sketch1.src = url1;
+  sketch2.src = url2;
+  sketch3.src = url3;
+  label1 = document.getElementById(currentStory.toString() + "blank1");
+  label1.innerHTML = labelsArr[0][0];
+  label2 = document.getElementById(currentStory.toString() + "blank2");
+  label2.innerHTML = labelsArr[1][0];
+  label3 = document.getElementById(currentStory.toString() + "blank3");
+  label3.innerHTML = labelsArr[2][0];
 }
 
-function page3to5(){
-    background(255)
-
-    if (posArr.length>0){
-        for (let i = 1; i < posArr.length; i++) {
-            const previous = posArr[i - 1];
-            const current = posArr[i];
-            stroke(0);
-            strokeWeight(16);
-        
-            line(previous.x, previous.y, current.x, current.y);
-    
-        }
-    }
-    url3 = canvas.toDataURL()
-    console.log(sketch3,url3)
-    classifySketch()
-    cnvs.hide()
-    page5()
-}
-
-function organizeSketches(){
-    if (labelsArr[0][2]){
-        sketch1.src=url1
-        sketch2.src=url2
-        sketch3.src=url3
-        label1=document.getElementById((currentStory.toString()+"blank1"))
-        label1.innerHTML=labelsArr[0][0]
-        label2=document.getElementById((currentStory.toString()+"blank1"))
-        label2.innerHTML=labelsArr[1][0]
-        label3=document.getElementById((currentStory.toString()+"blank1"))
-        label3.innerHTML=labelsArr[2][0]
-    }
-}
-
-function cycleLabels(){
-}
+function cycleLabels() {}
 
 function keyPressed() {
   if (key === " ") {
@@ -397,8 +426,8 @@ function temp() {
 //         // posArr[posArr.length - 1].push(lineCoords);
 //         posArr.push(lineCoords);
 
-      //   }
-    //   console.log("posArr: ", posArr);
+//   }
+//   console.log("posArr: ", posArr);
 //     }
 //   }
 // }

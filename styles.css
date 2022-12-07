@@ -24,6 +24,9 @@ button:hover{
     border-radius: 15px;
     font-size:2rem;
 }
+img{
+    width:50%;
+}
 
 /* ----- PAGES ----- */
 #page1{
@@ -49,4 +52,36 @@ button:hover{
     align-items: center;
 
     background-color:#bad7ff
+}
+
+/* ----- STORIES ----- */
+#story1{
+    display:none 
+}
+#story2{
+    display:none 
+}
+#story3{
+    display:none 
+}
+#story4{
+    display:none 
+}
+#story5{
+    display:none 
+}
+#story6{
+    display:none 
+}
+#story7{
+    display:none 
+}
+#story8{
+    display:none 
+}
+#story9{
+    display:none 
+}
+#story10{
+    display:none 
 }
