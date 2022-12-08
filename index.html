@@ -12,28 +12,34 @@
   <body>
     <script src="sketch.js"></script>
     <div id="page1">
-        page1
-        <div class = "dark-blue"> <i><strong>
-            Quick</i>, Mad Libs!
-        </strong> <br> 
-        Use your index finger to draw the prompt in time to create an original Mad Libs story! 
-        </div> <br>
+        <div class = "dark-blue"> 
+          <div class = "large-text">
+            <i><strong>Quick</i>, Mad Libs!</strong> <br> 
+          </div>
+          <div class = "medium-text">
+            Use your index finger to draw the prompt in time to create an original Mad Libs story! 
+          </div>
+        </div>
         <button type="button" onclick="switchPages()" id="button-page1">I'm Ready!</button>
     </div>
     <div id="page2">
-        page2
+      <br>
         <div class = "dark-blue"> 
-            
-                Drawing <div id="currentBlank"> /3 <br>
-            
-                Draw: <br>
-            
-           A(n) Animal <br>
-           
-            in <div id = "sketchTime"> ? </div> seconds <br>
-        
+          <div class = "small-text">
+            Drawing <div id="currentBlank">?</div> /3 <br><br>
+          </div>
+          <div class ="medium-text">
+            Draw: <br><br>
+            <div class = "large-text">
+              <div id = "currentPrompt">A(n) Animal </div><br>
+            </div>
+            in <div id = "sketchTime"> ? </div> seconds 
+          </div>
         </div>
-        <button type="button" onclick="switchPages()" id="button-page2"><i>Got it!</i> >>></button>
+        <button type="button" onclick="switchPages()" id="button-page2"><i>Got it! >>></i></button>
+    </div>
+    <div id="page3">
+      <div id="countdown-text">20</div>
     </div>
     <div id="page5">
       <div id="story1">

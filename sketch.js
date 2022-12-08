@@ -34,7 +34,6 @@ let promptsArr = [
   "An Occupation",
   "A Place",
 ];
-let currentPrompt = random(promptsArr); 
 let currentStory;
 let sketch, sketch1, sketch2, sketch3;
 let label1, label2, label3;
@@ -59,7 +58,6 @@ function preload() {
   title = loadFont("assets/fonts/Bold.ttf");
   titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
   subtext = loadFont("assets/fonts/Light.ttf");
-
   cursorImg = loadImage("assets/pngs/cursor100.png", loadedCursor);
   timerImg = loadImage("assets/pngs/timer.png", loadedTimer);
 }
@@ -89,16 +87,8 @@ function setup() {
   handModel = ml5.handpose(vid, handLoaded);
   handModel.on("hand", gotPose);
 
-  //   nextButton = createButton("NEXT");
-  //   nextButton.mousePressed(temp);
-  //   nextButton.size(100, 50);
-  //   nextButton.position(width / 2, 400);
-  //   nextButton.style("background-color", "rgba(92,145,213,255)");
-  //   nextButton.style("border", "none");
-  //   nextButton.style("border-radius", "15px");
-  //   nextButton.style("font-style", "italic");
-  //   nextButton.style("font-family", "fonts/Italic.ttf");
-  //   nextButton.style("color", "white");
+  selectTopic();
+
 }
 
 function handLoaded() {
@@ -302,16 +292,24 @@ function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
     page2();
-    selectTopic();
+    const currentPrompt = document.getElementById("currentPrompt")
+    currentPrompt.innerHTML=random(promptsArr); 
+    const currentBlankHTML=document.getElementById("currentBlank")
+    currentBlankHTML.innerHTML=currentBlank
+    const totalTime=document.getElementById("sketchTime")
+    totalTime.innerHTML=sketchTime/1000
     pages = 2;
+    if (pg3){
+      pg3.style.display="none"
+    }
   } else if (pages == 2) {
     pg2.style.display = "none";
     pg3 = document.getElementById("page3");
     pg3.style.display = "flex";
     cnvs.show();
+    timeInterval = setInterval(countdown, 1000);
     page3();
     pages = 3;
-    timeInterval = setInterval(countdown, 1000);
   } else if (pages == 5) {
     cnvs.hide();
     page6();
@@ -337,7 +335,7 @@ function switchPages() {
   } else if (currentBlank < totalBlanks && pages == 4) {
     //   pages=3
     setTimeout(() => {
-      page4to3();
+      page4to2();
     }, 3000);
     currentBlank++;
     console.log("WORK");
@@ -385,8 +383,8 @@ function page3to4() {
   switchPages();
 }
 
-function page4to3() {
-  pages = 2;
+function page4to2() {
+  pages = 1;
   switchPages();
 }
 
@@ -423,14 +421,14 @@ function organizeSketches() {
 
 function cycleLabels() {}
 
-function keyPressed() {
-  if (key === " ") {
-    switchPages();
-  }
-  if (pages == 1 && key === "t") {
-    selectTopic();
-  }
-}
+// function keyPressed() {
+//   if (key === " ") {
+//     switchPages();
+//   }
+//   if (pages == 1 && key === "t") {
+//     selectTopic();
+//   }
+// }
 
 function temp() {
   console.log("TEMP TEMP TEMP");
