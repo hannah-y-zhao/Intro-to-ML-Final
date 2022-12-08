@@ -9,7 +9,7 @@ let sketchTime = 20000;
 let vid;
 let doodleModel, doodleResults;
 let handModel, handData, index, middle;
-let countdownVal
+let countdownVal;
 let tempArr = [];
 let madLibsArr = [
   "story1",
@@ -39,6 +39,7 @@ let currentStory;
 let sketch, sketch1, sketch2, sketch3;
 let label1, label2, label3;
 let url1, url2, url3;
+let rowHeader;
 
 let body;
 let bodyItalic;
@@ -49,9 +50,9 @@ let nextButton;
 let cursorImg;
 let timerImg;
 
-let pg1, pg2, pg3, pg5, pg6;
+let pg1, pg2, pg3, pg4, pg5;
 let cnvs;
-let timeInterval
+let timeInterval;
 
 function preload() {
   body = loadFont("assets/fonts/Regular.ttf");
@@ -71,7 +72,7 @@ function loadedTimer() {
 }
 
 function setup() {
-    cnvs=document.getElementById("p5canvas")
+  cnvs = document.getElementById("mycanvas");
   cnvs = createCanvas(480, 480);
   cnvs.hide();
   rectMode(CORNER);
@@ -89,7 +90,6 @@ function setup() {
   handModel.on("hand", gotPose);
 
   selectTopic();
-
 }
 
 function handLoaded() {
@@ -139,7 +139,7 @@ function gotLabel(err, results) {
   if (labelsArr.length == 3) {
     page5();
   }
-//   cnvs.hide();
+  //   cnvs.hide();
 }
 
 function gotPose(results) {
@@ -156,9 +156,6 @@ function draw() {
     case 3:
       page3();
       break;
-    case 4:
-      page4();
-      break;
   }
 }
 
@@ -174,14 +171,7 @@ function page2() {
 
 function page3() {
   background(220);
-
-  if (currentBlank) {
-    if (currentBlank <= totalBlanks) {
-      sketchTime = 1000 * (25 - currentBlank * 5);
-      // console.log("sketchTime: ",sketchTime,"; currentBlank: ", currentBlank)
-    }
-  }
-
+  imageMode(CORNER);
   push();
   translate(vid.width, 0);
   scale(-1, 1);
@@ -197,7 +187,6 @@ function page3() {
     // circle(Xindex, Yindex, 15)
     // fill('blue')
     // circle(Xmiddle, Ymiddle, 15)
-    image(cursorImg, Xindex, Yindex);
 
     // if (posArr.length){
     //     for (let i = 1; i < posArr.length; i++) {
@@ -207,6 +196,9 @@ function page3() {
     //     }
     // }
     // console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
+    noStroke();
+    fill(255, 200);
+    square(0, 0, width);
     if (
       Xindex > width / 2 - vid.height / 2 &&
       Xindex < width / 2 + vid.height / 2 &&
@@ -222,7 +214,11 @@ function page3() {
       posArr.push(xy);
 
       // console.log("posArr: ", posArr);
-    } else if (Yindex >= Ymiddle && posArr.length>0&& posArr[posArr.length - 1].x > 0) {
+    } else if (
+      Yindex >= Ymiddle &&
+      posArr.length > 0 &&
+      posArr[posArr.length - 1].x > 0
+    ) {
       const invalid = {
         x: -1,
         y: -1,
@@ -241,31 +237,26 @@ function page3() {
         }
       }
     }
+    imageMode(CENTER);
+    image(cursorImg, Xindex, Yindex);
   }
 }
 
 function page4() {
-  background("#5c91d5");
-  noStroke();
-  fill(0);
-  text("break", width / 2, height / 2);
 
-  image(timerImg, width / 4, height / 2,200,200);
 }
 
 function page5() {
-  pg5 = document.getElementById("page5");
-  const thisStory=document.getElementById("story5")
-  thisStory.style.display="block"
-
-  pg5.style.display = "flex";
   organizeSketches();
-}
+  cnvs.hide();
 
-function page6() {
-  pg5.style.display = "none";
-  pg6 = document.getElementById("page6");
-  pg6.style.display = "flex";
+  rowHeader.style.display = "none";
+
+  pg5 = document.getElementById("page5");
+  pg5.style.display = "flex";
+
+  const thisStory = document.getElementById(currentStory.toString());
+  thisStory.style.display = "block";
 }
 
 function selectTopic() {
@@ -278,46 +269,54 @@ function selectTopic() {
   console.log(currentStory);
 }
 
-function countdown(){
-    if (countdownVal>0){
-        countdownVal--
-    }else if (countdownVal==0){
-        clearInterval(timeInterval)
-    }
-    const countdownTxt=document.getElementById("countdown-text")
-    countdownTxt.innerHTML=countdownVal
+function countdown() {
+  if (countdownVal > 0) {
+    countdownVal--;
+  } else if (countdownVal == 0) {
+    clearInterval(timeInterval);
+  }
+  const countdownTxt = document.getElementById("countdown-text");
+  countdownTxt.innerHTML = countdownVal;
 }
 
 function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
-    const currentPrompt = document.getElementById("currentPrompt")
-    currentPrompt.innerHTML=random(promptsArr); 
-    const currentBlankHTML=document.getElementById("currentBlank")
-    currentBlankHTML.innerHTML=currentBlank
-    const totalTime=document.getElementById("sketchTime")
-    totalTime.innerHTML=sketchTime/1000
+    const currentPrompt = document.getElementsByClassName("currentPrompt");
+    for (let i = 0; i < currentPrompt.length; i++) {
+      currentPrompt[i].innerHTML = random(promptsArr);
+    }
+    const currentBlankHTML = document.getElementById("currentBlank");
+    currentBlankHTML.innerHTML = currentBlank;
+
+    if (currentBlank) {
+      if (currentBlank <= totalBlanks) {
+        sketchTime = 1000 * (25 - currentBlank * 5);
+        // console.log("sketchTime: ",sketchTime,"; currentBlank: ", currentBlank)
+      }
+    }
+    const totalTime = document.getElementById("sketchTime");
+    totalTime.innerHTML = sketchTime / 1000;
     pages = 2;
     page2();
-    if (pg3){
-      pg3.style.display="none"
+    if (pg3) {
+      pg3.style.display = "none";
     }
   } else if (pages == 2) {
     pg2.style.display = "none";
     pg3 = document.getElementById("page3");
     pg3.style.display = "flex";
-     countdownVal=sketchTime/1000
+    countdownVal = sketchTime / 1000;
     cnvs.show();
+    rowHeader = document.getElementById("row-heading");
+    rowHeader.style.display="flex"
     timeInterval = setInterval(countdown, 1000);
     page3();
     pages = 3;
   } else if (pages == 5) {
-    cnvs.hide();
-    page6();
-  } else if (pages == 6) {
     pages = 1;
-
-    //-------------RESET EVERYTHING HERE---------------------//
+    pg1.style.display="flex"
+    pg5.style.display="none"
   }
   console.log(
     "currentBlank: ",
@@ -328,28 +327,21 @@ function switchPages() {
     pages
   );
   if (currentBlank < totalBlanks && pages == 3) {
-    // posArr.push([])
     console.log("something is happening");
     setTimeout(() => {
       page3to4();
     }, sketchTime);
   } else if (currentBlank < totalBlanks && pages == 4) {
-    //   pages=3
     setTimeout(() => {
       page4to2();
     }, 3000);
     currentBlank++;
     console.log("WORK");
   } else if (currentBlank == totalBlanks && pages == 3) {
-    // posArr.shift()
     console.log("posArr: ", posArr);
-    // pages=5
     setTimeout(() => {
       page3to5();
     }, sketchTime);
-  }
-  if (pages == 3) {
-    // posArr.push([])
   }
   console.log("pages", pages);
   posArr = [];
@@ -365,7 +357,9 @@ function page3to4() {
       stroke(0);
       strokeWeight(16);
 
-      line(previous.x, previous.y, current.x, current.y);
+      if (previous.x >= 0 && current.x >= 0) {
+        line(previous.x, previous.y, current.x, current.y);
+      }
     }
   }
 
@@ -381,12 +375,17 @@ function page3to4() {
   }
   classifySketch();
   pages = 4;
+  rowHeader.style.display = "none";
+  pg4=document.getElementById("page4")
+  pg4.style.display="flex"
+  cnvs.hide()
   switchPages();
 }
 
 function page4to2() {
   pages = 1;
   switchPages();
+  pg4.style.display="none"
 }
 
 function page3to5() {
@@ -399,12 +398,18 @@ function page3to5() {
       stroke(0);
       strokeWeight(16);
 
-      line(previous.x, previous.y, current.x, current.y);
+      if (previous.x >= 0 && current.x >= 0) {
+        line(previous.x, previous.y, current.x, current.y);
+      }
     }
   }
   url3 = canvas.toDataURL();
   console.log(sketch3, url3);
   classifySketch();
+  cnvs.hide();
+  pg3.style.display = "none";
+  rowHeader = document.getElementById("row-heading");
+  rowHeader.style.display = "none";
   // page5()
 }
 
@@ -414,89 +419,27 @@ function organizeSketches() {
   sketch3.src = url3;
   label1 = document.getElementById(currentStory.toString() + "blank1");
   label1.innerHTML = labelsArr[0][0];
+  label1.style.display = "inline";
+  label1.onclick = () => {
+    cycleLabels(label1, labelsArr[0]);
+  };
   label2 = document.getElementById(currentStory.toString() + "blank2");
   label2.innerHTML = labelsArr[1][0];
+  label2.style.display = "inline";
+  label2.onclick = () => {
+    cycleLabels(label2, labelsArr[1]);
+  };
   label3 = document.getElementById(currentStory.toString() + "blank3");
   label3.innerHTML = labelsArr[2][0];
+  label3.style.display = "inline";
+  label3.onclick = () => {
+    cycleLabels(label3, labelsArr[2]);
+  };
 }
 
-function cycleLabels1() {
+function cycleLabels(elem, arr) {
+  const current = elem.innerText;
+  const index = arr.indexOf(current);
 
-}
-
-// function keyPressed() {
-//   if (key === " ") {
-//     switchPages();
-//   }
-//   if (pages == 1 && key === "t") {
-//     selectTopic();
-//   }
-// }
-
-function temp() {
-  console.log("TEMP TEMP TEMP");
-}
-
-// function mouseDragged() {
-//   if (pages == 3) {
-//     if (
-//       mouseX > width / 2 - vid.height / 2 &&
-//       mouseX < width / 2 + vid.height / 2 &&
-//       mouseY > height / 2 - vid.height / 2 &&
-//       mouseY < height / 2 + vid.height / 2
-//     ) {
-//       lineCoords = {
-//         px: pmouseX,
-//         py: pmouseY,
-//         x: mouseX,
-//         y: mouseY,
-//       };
-//     //   if (posArr.length) {
-//         // posArr[posArr.length - 1].push(lineCoords);
-//         posArr.push(lineCoords);
-
-//   }
-//   console.log("posArr: ", posArr);
-//     }
-//   }
-// }
-
-function darkBlue(size, font, align, str = " ", x = 0, y = 0) {
-  fill(0, 75, 168);
-  textSize(size);
-  textFont(font);
-  textAlign(align);
-  text(str, x, y);
-}
-
-function medBlue(size, font, align, str = " ", x = 0, y = 0) {
-  fill(92, 145, 213);
-  textSize(size);
-  textFont(font);
-  textAlign(align);
-  text(str, x, y);
-}
-
-function lightBlue(size, font, align, str = " ", x = 0, y = 0) {
-  fill(186, 215, 255);
-  textSize(size);
-  textFont(font);
-  textAlign(align);
-  text(str, x, y);
-}
-
-function white(size, font, align, str = " ", x = 0, y = 0) {
-  fill(255);
-  textSize(size);
-  textFont(font);
-  textAlign(align);
-  text(str, x, y);
-}
-
-function black(size, font, align, str = " ", x = 0, y = 0) {
-  fill(0);
-  textSize(size);
-  textFont(font);
-  textAlign(align);
-  text(str, x, y);
+  elem.innerHTML = arr[(index + 1) % arr.length];
 }

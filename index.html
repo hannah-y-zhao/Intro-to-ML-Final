@@ -29,140 +29,228 @@
             Drawing <div id="currentBlank">?</div> /3 <br><br>
           </div>
           <div class ="medium-text">
-            Draw: <br><br>
+            Draw: <br>
             <div class = "large-text">
-              <div id = "currentPrompt">A(n) Animal </div><br>
+              <div class = "currentPrompt">A(n) Animal </div><br>
             </div>
-            in <div id = "sketchTime"> ? </div> seconds 
+            <i>in <div id = "sketchTime"> ? </div> seconds</i> 
           </div>
         </div>
         <button type="button" onclick="switchPages()" id="button-page2"><i>Got it! >>></i></button>
     </div>
     <div id="page3">
-      <div id="countdown-text">20</div>
+      <div id="row-heading">
+        <div class="small-text">
+          Prompt: <div class = "currentPrompt">prompt</div>
+        </div>
+        <div class="small-text">
+          Time:&nbsp;<div id="countdown-text">20</div>s
+        </div>
+      </div>
+    </div>
+    <div id="page4">
+      <img src="assets/pngs/timer.png" width="500px" id="timer-img">
+      <div class="white">
+        <div class="large-text">
+          Times up!<br> Get ready for the next prompt!
+        </div>
+      </div>
     </div>
     <div id="page5">
-      <div id="story1">
-        Someone I know recently combined
-        <img id="story1img1" />
-        <div id="story1blank1">temp</div>
-        flavored syrup &
-        <img id="story1img2" />
-        <div id="story1blank2">temp</div>
-        popcorn thinking it would be a nice desert. It tasted like
-        <img id="story1img3" />
-        <div id="story1blank3">temp</div>
-        and they don't recommend anyone else try it either.
+      <div id="row-heading-2">
+        <div class="dark-blue">
+          <div class="small-text">
+            Your finished Mad Lib!
+          </div>
+        </div>
       </div>
-      <div id="story2">
-        Hang on, the
-        <img id="story2img1" />
-        <div id="story2blank1">temp</div>
-        (s) are scratching at the
-        <img id="story2img2" />
-        <div id="story2blank2">temp</div>
-        and they'll be upset by the lack of
-        <img id="story2img3" />
-        <div id="story2blank3">temp</div>
-        (s).
+      <br><br>
+      <div class="medium-text">
+        <div id="story1">
+          Someone I know recently combined
+          <img id="story1img1" />
+          <div class="dark-blue">
+            <div id="story1blank1">temp</div>
+          </div>
+          flavored syrup &
+          <img id="story1img2" />
+          <div class="dark-blue">
+            <div id="story1blank2">temp</div>
+          </div>
+          popcorn thinking it would be a nice desert. It tasted like
+          <img id="story1img3" />
+          <div class="dark-blue">
+            <div id="story1blank3">temp</div>
+          </div>
+          and they don't recommend anyone else try it either.
+        </div>
+        <div id="story2">
+          Hang on, the
+          <img id="story2img1" />
+          <div class="dark-blue">
+            <div id="story2blank1">temp</div>
+          </div>
+          (s) are scratching at the
+          <img id="story2img2" />
+          <div class="dark-blue">
+            <div id="story2blank2">temp</div>
+          </div>
+          and they'll be upset by the lack of
+          <img id="story2img3" />
+          <div class="dark-blue">
+            <div id="story2blank3">temp</div>
+          </div>
+          (s).
+        </div>
+        <div id="story3">
+          Most
+          <img id="story3img1" />
+          <div class="dark-blue">
+            <div id="story3blank1">temp</div>
+          </div>
+          attacks occur about 10 feet from the
+          <img id="story3img2" />
+          <div class="dark-blue">
+            <div id="story3blank2">temp</div>
+          </div>
+          since that's where all the
+          <img id="story3img3" />
+          <div class="dark-blue">
+            <div id="story3blank3">temp</div>
+          </div>
+          (s) are.
+        </div>
+        <div id="story4">
+          I asked for some
+          <img id="story4img1" />
+          <div class="dark-blue">
+            <div id="story4blank1">temp</div>
+          </div>
+          (s) for Christmas but Santa returned my letter and said I already have
+          too many
+          <img id="story4img2" />
+          <div class="dark-blue">
+            <div id="story4blank2">temp</div>
+          </div>
+          (s)! He gave me a(n)
+          <img id="story4img3" />
+          <div class="dark-blue">
+            <div id="story4blank3">temp</div>
+          </div>
+          instead.
+        </div>
+        <div id="story5">
+          Just the sight of his
+          <img id="story5img1" />
+          <div class="dark-blue">
+            <div id="story5blank1">temp</div>
+          </div>
+          made me want to run and hide under my mom's
+          <img id="story5img2" />
+          <div class="dark-blue">
+            <div id="story5blank2">temp</div>
+          </div>
+          ... I haven't been that scared since I first saw a(n)
+          <img id="story5img3" />
+          <div class="dark-blue">
+            <div id="story5blank3">temp</div>
+          </div>
+          !
+        </div>
+        <div id="story6">
+          She wanted a pet
+          <img id="story6img1" />
+          <div class="dark-blue">
+            <div id="story6blank1">temp</div>
+          </div>
+          but ended up getting a(n)
+          <img id="story6img2" />
+          <div class="dark-blue">
+            <div id="story6blank2">temp</div>
+          </div>
+          and a(n)
+          <img id="story6img3" />
+          <div class="dark-blue">
+            <div id="story6blank3">temp</div>
+          </div>
+          instead.
+        </div>
+        <div id="story7">
+          Written
+          <img id="story7img1" />
+          <div class="dark-blue">
+            <div id="story7blank1">temp</div>
+          </div>
+          (s) in instruction
+          <img id="story7img2" />
+          <div class="dark-blue">
+            <div id="story7blank2">temp</div>
+          </div>
+          (s) are worthless since
+          <img id="story7img3" />
+          <div class="dark-blue">
+            <div id="story7blank3">temp</div>
+          </div>
+          (s) can't read.
+        </div>
+        <div id="story8">
+          There aren't enough
+          <img id="story8img1" />
+          <div class="dark-blue">
+            <div id="story8blank1">temp</div>
+          </div>
+          (s) in the world to stop the
+          <img id="story8img2" />
+          <div class="dark-blue">
+            <div id="story8blank2">temp</div>
+          </div>
+          that's coming out of his
+          <img id="story8img3" />
+          <div class="dark-blue">
+            <div id="story8blank3">temp</div>
+          </div>
+          .
+        </div>
+        <div id="story9">
+          She's been eyeing them all day and waiting to make her move like a wild
+          <img id="story9img1" />
+          <div class="dark-blue">
+            <div id="story9blank1">temp</div>
+          </div>
+          stalking a(n)
+          <img id="story9img2" />
+          <div class="dark-blue">
+            <div id="story9blank2">temp</div>
+          </div>
+          in the
+          <img id="story9img3" />
+          <div class="dark-blue">
+            <div id="story9blank3">temp</div>
+          </div>
+          .
+        </div>
+        <div id="story10">
+          He embraced his new life as a(n)
+          <img id="story10img1" />
+          <div class="dark-blue">
+            <div id="story10blank1">temp</div>
+          </div>
+          . Although he thought there would be more
+          <img id="story10img2" />
+          <div class="dark-blue">
+            <div id="story10blank2">temp</div>
+          </div>
+          (s) involved,
+          <img id="story10img3" />
+          <div class="dark-blue">
+            <div id="story10blank3">temp</div>
+          </div>
+          (s) are okay too.
+        </div>
       </div>
-      <div id="story3">
-        Most
-        <img id="story3img1" />
-        <div id="story3blank1">temp</div>
-        attacks occur about 10 feet from the
-        <img id="story3img2" />
-        <div id="story3blank2">temp</div>
-        since that's where all the
-        <img id="story3img3" />
-        <div id="story3blank3">temp</div>
-        (s) are.
-      </div>
-      <div id="story4">
-        I asked for some
-        <img id="story4img1" />
-        <div id="story4blank1">temp</div>
-        (s) for Christmas but Santa returned my letter and said I already have
-        too many
-        <img id="story4img2" />
-        <div id="story4blank2">temp</div>
-        (s)! He gave me a(n)
-        <img id="story4img3" />
-        <div id="story4blank3">temp</div>
-        instead.
-      </div>
-      <div id="story5">
-        Just the sight of his
-        <img id="story5img1" />
-        <div id="story5blank1">temp</div>
-        made me want to run and hide under my mom's
-        <img id="story5img2" />
-        <div id="story5blank2">temp</div>
-        ... I haven't been that scared since I first saw a(n)
-        <img id="story5img3" />
-        <div id="story5blank3">temp</div>
-        !
-      </div>
-      <div id="story6">
-        She wanted a pet
-        <img id="story6img1" />
-        <div id="story6blank1">temp</div>
-        but ended up getting a(n)
-        <img id="story6img2" />
-        <div id="story6blank2">temp</div>
-        and a(n)
-        <img id="story6img3" />
-        <div id="story6blank3">temp</div>
-        instead.
-      </div>
-      <div id="story7">
-        Written
-        <img id="story7img1" />
-        <div id="story7blank1">temp</div>
-        (s) in instruction
-        <img id="story7img2" />
-        <div id="story7blank2">temp</div>
-        (s) are worthless since
-        <img id="story7img3" />
-        <div id="story7blank3">temp</div>
-        (s) can't read.
-      </div>
-      <div id="story8">
-        There aren't enough
-        <img id="story8img1" />
-        <div id="story8blank1">temp</div>
-        (s) in the world to stop the
-        <img id="story8img2" />
-        <div id="story8blank2">temp</div>
-        that's coming out of his
-        <img id="story8img3" />
-        <div id="story8blank3">temp</div>
-        .
-      </div>
-      <div id="story9">
-        She's been eyeing them all day and waiting to make her move like a wild
-        <img id="story9img1" />
-        <div id="story9blank1">temp</div>
-        stalking a(n)
-        <img id="story9img2" />
-        <div id="story9blank2">temp</div>
-        in the
-        <img id="story9img3" />
-        <div id="story9blank3">temp</div>
-        .
-      </div>
-      <div id="story10">
-        He embraced his new life as a(n)
-        <img id="story10img1" />
-        <div id="story10blank1">temp</div>
-        . Although he thought there would be more
-        <img id="story10img2" />
-        <div id="story10blank2">temp</div>
-        (s) involved,
-        <img id="story10img3" />
-        <div id="story10blank3">temp</div>
-        (s) are okay too.
-      </div>
+      <button type="button" onclick="switchPages()" id="button-restart">
+        <i>Play again? >>></i>
+      </button>
     </div>
     <div id="page6">
       <button type="button" onclick="switchPages()" id="button-restart">
