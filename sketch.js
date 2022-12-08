@@ -9,6 +9,7 @@ let sketchTime = 20000;
 let vid;
 let doodleModel, doodleResults;
 let handModel, handData, index, middle;
+let countdownVal
 let tempArr = [];
 let madLibsArr = [
   "story1",
@@ -278,7 +279,6 @@ function selectTopic() {
 }
 
 function countdown(){
-    let countdownVal=sketchTime
     if (countdownVal>0){
         countdownVal--
     }else if (countdownVal==0){
@@ -291,7 +291,6 @@ function countdown(){
 function switchPages() {
   if (pages == 1) {
     // tempText = "press t";
-    page2();
     const currentPrompt = document.getElementById("currentPrompt")
     currentPrompt.innerHTML=random(promptsArr); 
     const currentBlankHTML=document.getElementById("currentBlank")
@@ -299,6 +298,7 @@ function switchPages() {
     const totalTime=document.getElementById("sketchTime")
     totalTime.innerHTML=sketchTime/1000
     pages = 2;
+    page2();
     if (pg3){
       pg3.style.display="none"
     }
@@ -306,6 +306,7 @@ function switchPages() {
     pg2.style.display = "none";
     pg3 = document.getElementById("page3");
     pg3.style.display = "flex";
+     countdownVal=sketchTime/1000
     cnvs.show();
     timeInterval = setInterval(countdown, 1000);
     page3();
@@ -419,7 +420,9 @@ function organizeSketches() {
   label3.innerHTML = labelsArr[2][0];
 }
 
-function cycleLabels() {}
+function cycleLabels1() {
+
+}
 
 // function keyPressed() {
 //   if (key === " ") {
