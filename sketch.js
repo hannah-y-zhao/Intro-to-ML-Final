@@ -1,16 +1,31 @@
-let pages = 1;
-let posArr = [];
-let lineCoords;
-let blanksArr = [2, 3];
-let currentBlank;
-let totalBlanks = 3;
-let tempText = "press t";
-let sketchTime = 20000;
-let vid;
+// ----- HTML VARIABLES ----- //
+let sketch, sketch1, sketch2, sketch3;
+let label1, label2, label3;
+let url1, url2, url3;
+let pg1, pg2, pg3, pg4, pg5;
+let rowHeader;
+let timeInterval;
+let countdownVal;
+
+// ----- ML5 ----- //
 let doodleModel, doodleResults;
 let handModel, handData, index, middle;
-let countdownVal;
-let tempArr = [];
+let vid;
+let cnvs;
+
+// ----- CHANGES BETWEEN PAGES ----- //
+let pages = 1;
+let currentBlank;
+let sketchTime = 20000;
+
+let posArr = [];
+let labelsArr = [];
+
+// ----- CONST ----- //
+let totalBlanks = 3;
+let currentStory;
+let cursorImg;
+let timerImg;
 let madLibsArr = [
   "story1",
   "story2",
@@ -23,7 +38,6 @@ let madLibsArr = [
   "story9",
   "story10",
 ];
-let labelsArr = [];
 let promptsArr = [
   "A Food",
   "An Animal",
@@ -35,31 +49,13 @@ let promptsArr = [
   "An Occupation",
   "A Place",
 ];
-let currentStory;
-let sketch, sketch1, sketch2, sketch3;
-let label1, label2, label3;
-let url1, url2, url3;
-let rowHeader;
-
-let body;
-let bodyItalic;
-let title;
-let titleItalic;
-let subtext;
-let nextButton;
-let cursorImg;
-let timerImg;
-
-let pg1, pg2, pg3, pg4, pg5;
-let cnvs;
-let timeInterval;
 
 function preload() {
-  body = loadFont("assets/fonts/Regular.ttf");
-  bodyItalic = loadFont("assets/fonts/Italic.ttf");
-  title = loadFont("assets/fonts/Bold.ttf");
-  titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
-  subtext = loadFont("assets/fonts/Light.ttf");
+  // body = loadFont("assets/fonts/Regular.ttf");
+  // bodyItalic = loadFont("assets/fonts/Italic.ttf");
+  // title = loadFont("assets/fonts/Bold.ttf");
+  // titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
+  // subtext = loadFont("assets/fonts/Light.ttf");
   cursorImg = loadImage("assets/pngs/cursor100.png", loadedCursor);
   timerImg = loadImage("assets/pngs/timer.png", loadedTimer);
 }
@@ -75,13 +71,12 @@ function setup() {
   cnvs = document.getElementById("mycanvas");
   cnvs = createCanvas(480, 480);
   cnvs.hide();
+
   rectMode(CORNER);
   imageMode(CORNER);
-  vid = createCapture(VIDEO); //640 x 480
-  // vid.size(480,480)
+
+  vid = createCapture(VIDEO); 
   vid.hide();
-  cursor(cursorImg, 32, 32);
-  image(cursorImg, width / 2, height - 20);
 
   pg1 = document.getElementById("page1");
 
@@ -92,6 +87,7 @@ function setup() {
   selectTopic();
 }
 
+// ----- START ML5 SECTION ----- //
 function handLoaded() {
   console.log("handModel: ", handModel);
 }
@@ -139,17 +135,19 @@ function gotLabel(err, results) {
   if (labelsArr.length == 3) {
     page5();
   }
-  //   cnvs.hide();
 }
 
 function gotPose(results) {
   handData = results;
-  // console.log(handData);
   if (results.length > 0) {
     index = results[0].annotations.indexFinger[3];
     middle = results[0].annotations.middleFinger[3];
   }
 }
+
+// ----- END ML5 SECTION ----- //
+
+// ----- START PAGES SECTION ----- //
 
 function draw() {
   switch (pages) {
@@ -179,26 +177,14 @@ function page3() {
   pop();
 
   if (handData) {
-    let Yindex = index[1];
-    let Ymiddle = middle[1];
-    let Xindex = vid.width - index[0];
-    let Xmiddle = vid.width - middle[0];
-    // fill('red')
-    // circle(Xindex, Yindex, 15)
-    // fill('blue')
-    // circle(Xmiddle, Ymiddle, 15)
-
-    // if (posArr.length){
-    //     for (let i = 1; i < posArr.length; i++) {
-    //         stroke(0);
-    //         strokeWeight(25);
-    //         line(posArr[i].px,posArr[i].py,posArr[i].x,posArr[i].y,)
-    //     }
-    // }
-    // console.log("index coords: ",Xindex,Yindex, "; top left: ", width / 2 - vid.height / 2,height / 2 - vid.height / 2,"; bottom right: ", width / 2 + vid.height / 2, height / 2 + vid.height / 2)
     noStroke();
     fill(255, 200);
     square(0, 0, width);
+
+    let Yindex = index[1];
+    let Ymiddle = middle[1];
+    let Xindex = vid.width - index[0];
+
     if (
       Xindex > width / 2 - vid.height / 2 &&
       Xindex < width / 2 + vid.height / 2 &&
@@ -213,7 +199,6 @@ function page3() {
       };
       posArr.push(xy);
 
-      // console.log("posArr: ", posArr);
     } else if (
       Yindex >= Ymiddle &&
       posArr.length > 0 &&
@@ -242,49 +227,23 @@ function page3() {
   }
 }
 
-function page4() {
-
-}
-
 function page5() {
   organizeSketches();
   cnvs.hide();
 
   rowHeader.style.display = "none";
-
   pg5 = document.getElementById("page5");
   pg5.style.display = "flex";
-
   const thisStory = document.getElementById(currentStory.toString());
   thisStory.style.display = "block";
 }
 
-function selectTopic() {
-  currentBlank = 1;
-  console.log("totalBlanks: ", totalBlanks);
-  currentStory = random(madLibsArr);
-  sketch1 = document.getElementById(currentStory.toString() + "img1");
-  sketch2 = document.getElementById(currentStory.toString() + "img2");
-  sketch3 = document.getElementById(currentStory.toString() + "img3");
-  console.log(currentStory);
-}
-
-function countdown() {
-  if (countdownVal > 0) {
-    countdownVal--;
-  } else if (countdownVal == 0) {
-    clearInterval(timeInterval);
-  }
-  const countdownTxt = document.getElementById("countdown-text");
-  countdownTxt.innerHTML = countdownVal;
-}
-
 function switchPages() {
   if (pages == 1) {
-    // tempText = "press t";
     const currentPrompt = document.getElementsByClassName("currentPrompt");
+    const randomPrompt= random(promptsArr);
     for (let i = 0; i < currentPrompt.length; i++) {
-      currentPrompt[i].innerHTML = random(promptsArr);
+      currentPrompt[i].innerHTML = randomPrompt
     }
     const currentBlankHTML = document.getElementById("currentBlank");
     currentBlankHTML.innerHTML = currentBlank;
@@ -299,51 +258,56 @@ function switchPages() {
     totalTime.innerHTML = sketchTime / 1000;
     pages = 2;
     page2();
+
     if (pg3) {
       pg3.style.display = "none";
     }
+
   } else if (pages == 2) {
     pg2.style.display = "none";
     pg3 = document.getElementById("page3");
     pg3.style.display = "flex";
+
     countdownVal = sketchTime / 1000;
     cnvs.show();
+
     rowHeader = document.getElementById("row-heading");
     rowHeader.style.display="flex"
+
     timeInterval = setInterval(countdown, 1000);
     page3();
+
     pages = 3;
+
   } else if (pages == 5) {
     pages = 1;
+
     pg1.style.display="flex"
     pg5.style.display="none"
   }
-  console.log(
-    "currentBlank: ",
-    currentBlank,
-    "totalBlanks: ",
-    totalBlanks,
-    "pages",
-    pages
-  );
+
   if (currentBlank < totalBlanks && pages == 3) {
-    console.log("something is happening");
+    // console.log("currentBlank < totalBlanks && pages == 3");
     setTimeout(() => {
       page3to4();
     }, sketchTime);
+
   } else if (currentBlank < totalBlanks && pages == 4) {
+    // console.log("currentBlank < totalBlanks && pages == 4");
     setTimeout(() => {
       page4to2();
     }, 3000);
+
     currentBlank++;
-    console.log("WORK");
+
   } else if (currentBlank == totalBlanks && pages == 3) {
-    console.log("posArr: ", posArr);
+    // console.log("currentBlank == totalBlanks && pages == 3");
     setTimeout(() => {
       page3to5();
     }, sketchTime);
+
   }
-  console.log("pages", pages);
+  // console.log("pages: ", pages);
   posArr = [];
 }
 
@@ -373,6 +337,7 @@ function page3to4() {
     url3 = canvas.toDataURL();
     console.log(sketch3, url3);
   }
+
   classifySketch();
   pages = 4;
   rowHeader.style.display = "none";
@@ -407,10 +372,32 @@ function page3to5() {
   console.log(sketch3, url3);
   classifySketch();
   cnvs.hide();
+
   pg3.style.display = "none";
   rowHeader = document.getElementById("row-heading");
   rowHeader.style.display = "none";
-  // page5()
+}
+function selectTopic() {
+  currentBlank = 1;
+  currentStory = random(madLibsArr);
+  sketch1 = document.getElementById(currentStory.toString() + "img1");
+  sketch2 = document.getElementById(currentStory.toString() + "img2");
+  sketch3 = document.getElementById(currentStory.toString() + "img3");
+  // console.log(currentStory);
+}
+
+// ----- END PAGES SECTION ----- //
+
+// ----- MISC SECTION ----- //
+
+function countdown() {
+  if (countdownVal > 0) {
+    countdownVal--;
+  } else if (countdownVal == 0) {
+    clearInterval(timeInterval);
+  }
+  const countdownTxt = document.getElementById("countdown-text");
+  countdownTxt.innerHTML = countdownVal;
 }
 
 function organizeSketches() {
