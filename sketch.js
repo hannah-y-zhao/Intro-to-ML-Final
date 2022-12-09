@@ -26,6 +26,7 @@ let totalBlanks = 3;
 let currentStory;
 let cursorImg;
 let timerImg;
+let audioBackground, audioTicking, audioTimesUp
 let madLibsArr = [
   "story1",
   "story2",
@@ -51,13 +52,12 @@ let promptsArr = [
 ];
 
 function preload() {
-  // body = loadFont("assets/fonts/Regular.ttf");
-  // bodyItalic = loadFont("assets/fonts/Italic.ttf");
-  // title = loadFont("assets/fonts/Bold.ttf");
-  // titleItalic = loadFont("assets/fonts/BoldItalic.ttf");
-  // subtext = loadFont("assets/fonts/Light.ttf");
   cursorImg = loadImage("assets/pngs/cursor100.png", loadedCursor);
   timerImg = loadImage("assets/pngs/timer.png", loadedTimer);
+  // soundFormats('mp3', 'ogg');
+  audioBackground=loadSound("assets/mp3s/song.mp3", loadedSound)
+  audioTicking=loadSound("assets/mp3s/ticking.mp3", loadedSound)
+  audioTimesUp=loadSound("assets/mp3s/timesUp.mp3", loadedSound)
 }
 
 function loadedCursor() {
@@ -65,6 +65,9 @@ function loadedCursor() {
 }
 function loadedTimer() {
   console.log("timer: ", timerImg);
+}
+function loadedSound(){
+  console.log("loaded sound")
 }
 
 function setup() {
@@ -259,8 +262,11 @@ function switchPages() {
     pages = 2;
     page2();
 
-    if (pg3) {
-      pg3.style.display = "none";
+    // if (pg3) {
+    //   pg3.style.display = "none";
+    // }
+    if (!audioBackground.isLooping()){
+      audioBackground.loop()
     }
 
   } else if (pages == 2) {
@@ -276,9 +282,13 @@ function switchPages() {
 
     timeInterval = setInterval(countdown, 1000);
     page3();
-
     pages = 3;
 
+    if(!audioTicking.isPaused()){
+      audioTicking.loop()
+    }else if (audioTicking.isPaused()){
+      audioTicking.play()
+    }
   } else if (pages == 5) {
     pages = 1;
 
@@ -345,12 +355,16 @@ function page3to4() {
   pg4.style.display="flex"
   cnvs.hide()
   switchPages();
+
+  audioTicking.pause()
+  audioTimesUp.play()
 }
 
 function page4to2() {
   pages = 1;
   switchPages();
   pg4.style.display="none"
+  audioTimesUp.pause()
 }
 
 function page3to5() {

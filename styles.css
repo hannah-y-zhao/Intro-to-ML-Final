@@ -66,11 +66,11 @@ button:hover{
 #button-page2{
     background-color: #bad7ff;
     color:#004ba8;
-    border: none;
+    border: #5c91d5 2px solid;
     text-align: center;
     font-size: 33px;
     border-radius: 15px;
-    padding:3rem;
+    padding:2rem 4rem 2rem 4rem;
     margin-right: 5rem;
     align-self:flex-end
 }
@@ -111,7 +111,7 @@ img{
 #page3{
     display:none;
     width:100%;
-    flex-flow:row nowrap;
+    flex-flow:row wrap;
     justify-content:center;
     align-items: center;
 }
@@ -198,8 +198,7 @@ img{
     width:100%;
     /* position:fixed;*/
     top:0;
-    padding:2rem 3rem 2rem 3rem;
-
+    padding:3rem 4rem 3rem 4rem;
 }
 #row-heading-2{
     background-color:#bad7ff;
@@ -210,8 +209,12 @@ img{
     width:100%;
     /* position:fixed;*/
     top:0;
-    padding:2rem 3rem 2rem 3rem;
-
+    padding:3rem 4rem 3rem 4rem;
+}
+#row-main{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content:center;
 }
 #timer-img{
     width:500px
