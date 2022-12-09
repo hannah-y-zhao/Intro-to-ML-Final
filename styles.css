@@ -175,6 +175,10 @@ img{
 #story10{
     display:none 
 }
+.label:hover{
+    text-decoration: underline;
+    font-style:italic;
+}
 
 /* ----- OTHER ----- */
 #currentBlank{
@@ -198,7 +202,7 @@ img{
     width:100%;
     /* position:fixed;*/
     top:0;
-    padding:3rem 4rem 3rem 4rem;
+    padding:2.5rem 3.5rem 2.5rem 3.5rem;
 }
 #row-heading-2{
     background-color:#bad7ff;
@@ -209,13 +213,34 @@ img{
     width:100%;
     /* position:fixed;*/
     top:0;
-    padding:3rem 4rem 3rem 4rem;
+    padding:2.5rem 3.5rem 2.5rem 3.5rem;
 }
 #row-main{
     display:flex;
     flex-flow: row nowrap;
     justify-content:center;
+    align-items:flex-end;
+    margin-top:1rem;
+}
+#column-canvas{
+    display:flex;
+    flex-flow: column nowrap;
+    justify-content:flex-start;
+    align-items:center
 }
 #timer-img{
     width:500px
+}
+#instruction-start{
+    width:400px;
+    height:auto;
+    margin-top:2rem;
+}
+#instruction-stop{
+    width:400px;
+    height:auto;
+    margin-top:2rem;
+}
+#mycanvas{
+    margin:2rem;
 }

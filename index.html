@@ -49,16 +49,30 @@
         </div>
       </div>
       <div id="row-main">
-        <img src="assets/pngs/start.png" width="300px">
-        <div id="column-canvas">
-          canvas
+        <div class="column-page3">
           <div class="dark-blue">
             <div class="medium-text">
+              Start drawing:
+            </div>
+          </div>
+          <img src="assets/pngs/start.png" id="instruction-start">
+        </div>
+        <div id="column-canvas">
+          <div class="dark-blue">
+            <div class="small-text">
               Press SPACE to clear your drawing!
             </div>
           </div>
+          <div id="mycanvas"></div>
         </div>
-        <img src="assets/pngs/stop2.png" width="300px">
+        <div class="column-page3">
+          <div class="dark-blue">
+            <div class="medium-text">
+              Stop drawing:
+            </div>
+          </div>
+          <img src="assets/pngs/stop2.png" id="instruction-stop">
+        </div>
       </div>
     </div>
     <div id="page4">
@@ -72,8 +86,12 @@
     <div id="page5">
       <div id="row-heading-2">
         <div class="dark-blue">
-          <div class="small-text">
+          <div class="medium-text">
             Your finished Mad Lib!
+          </div>
+          <br>
+          <div class="small-text">
+            Click on the <b>&lt;labels&gt;</b> to see different versions!
           </div>
         </div>
       </div>
@@ -83,17 +101,17 @@
           Someone I know recently combined
           <img id="story1img1" />
           <div class="dark-blue">
-            &lt;<div id="story1blank1">temp</div>&gt;
+            &lt;<div id="story1blank1" class="label">temp</div>&gt;
           </div>
           flavored syrup &
           <img id="story1img2" />
           <div class="dark-blue">
-            &lt;<div id="story1blank2">temp</div>&gt;
+            &lt;<div id="story1blank2" class="label">temp</div>&gt;
           </div>
           popcorn thinking it would be a nice desert. It tasted like
           <img id="story1img3" />
           <div class="dark-blue">
-            &lt;<div id="story1blank3">temp</div>&gt;
+            &lt;<div id="story1blank3" class="label">temp</div>&gt;
           </div>
           and they don't recommend anyone else try it either.
         </div>
@@ -101,17 +119,17 @@
           Hang on, the
           <img id="story2img1" />
           <div class="dark-blue">
-            &lt;<div id="story2blank1">temp</div>&gt;
+            &lt;<div id="story2blank1" class="label">temp</div>&gt;
           </div>
           (s) are scratching at the
           <img id="story2img2" />
           <div class="dark-blue">
-            &lt;<div id="story2blank2">temp</div>&gt;
+            &lt;<div id="story2blank2" class="label">temp</div>&gt;
           </div>
           and they'll be upset by the lack of
           <img id="story2img3" />
           <div class="dark-blue">
-            &lt;<div id="story2blank3">temp</div>&gt;
+            &lt;<div id="story2blank3" class="label">temp</div>&gt;
           </div>
           (s).
         </div>
@@ -119,17 +137,17 @@
           Most
           <img id="story3img1" />
           <div class="dark-blue">
-            &lt;<div id="story3blank1">temp</div>&gt;
+            &lt;<div id="story3blank1" class="label">temp</div>&gt;
           </div>
           attacks occur about 10 feet from the
           <img id="story3img2" />
           <div class="dark-blue">
-            &lt;<div id="story3blank2">temp</div>&gt;
+            &lt;<div id="story3blank2" class="label">temp</div>&gt;
           </div>
           since that's where all the
           <img id="story3img3" />
           <div class="dark-blue">
-            &lt;<div id="story3blank3">temp</div>&gt;
+            &lt;<div id="story3blank3" class="label">temp</div>&gt;
           </div>
           (s) are.
         </div>
@@ -137,18 +155,18 @@
           I asked for some
           <img id="story4img1" />
           <div class="dark-blue">
-            &lt;<div id="story4blank1">temp</div>&gt;
+            &lt;<div id="story4blank1" class="label">temp</div>&gt;
           </div>
           (s) for Christmas but Santa returned my letter and said I already have
           too many
           <img id="story4img2" />
           <div class="dark-blue">
-            &lt;<div id="story4blank2">temp</div>&gt;
+            &lt;<div id="story4blank2" class="label">temp</div>&gt;
           </div>
           (s)! He gave me a(n)
           <img id="story4img3" />
           <div class="dark-blue">
-            &lt;<div id="story4blank3">temp</div>&gt;
+            &lt;<div id="story4blank3" class="label">temp</div>&gt;
           </div>
           instead.
         </div>
@@ -156,17 +174,17 @@
           Just the sight of his
           <img id="story5img1" />
           <div class="dark-blue">
-            &lt;<div id="story5blank1">temp</div>&gt;
+            &lt;<div id="story5blank1" class="label">temp</div>&gt;
           </div>
           made me want to run and hide under my mom's
           <img id="story5img2" />
           <div class="dark-blue">
-            &lt;<div id="story5blank2">temp</div>&gt;
+            &lt;<div id="story5blank2" class="label">temp</div>&gt;
           </div>
           ... I haven't been that scared since I first saw a(n)
           <img id="story5img3" />
           <div class="dark-blue">
-            &lt;<div id="story5blank3">temp</div>&gt;
+            &lt;<div id="story5blank3" class="label">temp</div>&gt;
           </div>
           !
         </div>
@@ -174,17 +192,17 @@
           She wanted a pet
           <img id="story6img1" />
           <div class="dark-blue">
-            &lt;<div id="story6blank1">temp</div>&gt;
+            &lt;<div id="story6blank1" class="label">temp</div>&gt;
           </div>
           but ended up getting a(n)
           <img id="story6img2" />
           <div class="dark-blue">
-            &lt;<div id="story6blank2">temp</div>&gt;
+            &lt;<div id="story6blank2" class="label">temp</div>&gt;
           </div>
           and a(n)
           <img id="story6img3" />
           <div class="dark-blue">
-            &lt;<div id="story6blank3">temp</div>&gt;
+            &lt;<div id="story6blank3" class="label">temp</div>&gt;
           </div>
           instead.
         </div>
@@ -192,17 +210,17 @@
           Written
           <img id="story7img1" />
           <div class="dark-blue">
-            &lt;<div id="story7blank1">temp</div>&gt;
+            &lt;<div id="story7blank1" class="label">temp</div>&gt;
           </div>
           (s) in instruction
           <img id="story7img2" />
           <div class="dark-blue">
-            &lt;<div id="story7blank2">temp</div>&gt;
+            &lt;<div id="story7blank2" class="label">temp</div>&gt;
           </div>
           (s) are worthless since
           <img id="story7img3" />
           <div class="dark-blue">
-            &lt;<div id="story7blank3">temp</div>&gt;
+            &lt;<div id="story7blank3" class="label">temp</div>&gt;
           </div>
           (s) can't read.
         </div>
@@ -210,17 +228,17 @@
           There aren't enough
           <img id="story8img1" />
           <div class="dark-blue">
-            &lt;<div id="story8blank1">temp</div>&gt;
+            &lt;<div id="story8blank1" class="label">temp</div>&gt;
           </div>
           (s) in the world to stop the
           <img id="story8img2" />
           <div class="dark-blue">
-            &lt;<div id="story8blank2">temp</div>&gt;
+            &lt;<div id="story8blank2" class="label">temp</div>&gt;
           </div>
           that's coming out of his
           <img id="story8img3" />
           <div class="dark-blue">
-            &lt;<div id="story8blank3">temp</div>&gt;
+            &lt;<div id="story8blank3" class="label">temp</div>&gt;
           </div>
           .
         </div>
@@ -228,17 +246,17 @@
           She's been eyeing them all day and waiting to make her move like a wild
           <img id="story9img1" />
           <div class="dark-blue">
-            &lt;<div id="story9blank1">temp</div>&gt;
+            &lt;<div id="story9blank1" class="label">temp</div>&gt;
           </div>
           stalking a(n)
           <img id="story9img2" />
           <div class="dark-blue">
-            &lt;<div id="story9blank2">temp</div>&gt;
+            &lt;<div id="story9blank2" class="label">temp</div>&gt;
           </div>
           in the
           <img id="story9img3" />
           <div class="dark-blue">
-            &lt;<div id="story9blank3">temp</div>&gt;
+            &lt;<div id="story9blank3" class="label">temp</div>&gt;
           </div>
           .
         </div>
@@ -246,28 +264,23 @@
           He embraced his new life as a(n)
           <img id="story10img1" />
           <div class="dark-blue">
-            &lt;<div id="story10blank1">temp</div>&gt;
+            &lt;<div id="story10blank1" class="label">temp</div>&gt;
           </div>
           . Although he thought there would be more
           <img id="story10img2" />
           <div class="dark-blue">
-            &lt;<div id="story10blank2">temp</div>&gt;
+            &lt;<div id="story10blank2" class="label">temp</div>&gt;
           </div>
           (s) involved,
           <img id="story10img3" />
           <div class="dark-blue">
-            &lt;<div id="story10blank3">temp</div>&gt;
+            &lt;<div id="story10blank3" class="label">temp</div>&gt;
           </div>
           (s) are okay too.
         </div>
       </div>
-      <button type="button" onclick="switchPages()" id="button-restart">
+      <button type="button" onclick="reloadPage()" id="button-restart">
         <i>Play again? >>></i>
-      </button>
-    </div>
-    <div id="page6">
-      <button type="button" onclick="switchPages()" id="button-restart">
-        <i>Play again?</i>
       </button>
     </div>
   </body>

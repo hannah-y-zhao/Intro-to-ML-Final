@@ -71,8 +71,9 @@ function loadedSound(){
 }
 
 function setup() {
-  cnvs = document.getElementById("mycanvas");
+  // cnvs = document.getElementById("mycanvas");
   cnvs = createCanvas(480, 480);
+  cnvs.parent("mycanvas")
   cnvs.hide();
 
   rectMode(CORNER);
@@ -350,6 +351,7 @@ function page3to4() {
 
   classifySketch();
   pages = 4;
+  pg3.style.display = "none";
   rowHeader.style.display = "none";
   pg4=document.getElementById("page4")
   pg4.style.display="flex"
@@ -443,4 +445,15 @@ function cycleLabels(elem, arr) {
   const index = arr.indexOf(current);
 
   elem.innerHTML = arr[(index + 1) % arr.length];
+}
+
+function reloadPage(){
+  location.reload()
+}
+
+function keyPressed(){
+  if (pages==3&&keyCode===32){
+    posArr=[]
+    console.log('clear drawing')
+  }
 }
