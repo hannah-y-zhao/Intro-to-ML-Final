@@ -1,5 +1,5 @@
 // ----- HTML VARIABLES ----- //
-let sketch, sketch1, sketch2, sketch3;
+let sketch1, sketch2, sketch3;
 let label1, label2, label3;
 let url1, url2, url3;
 let pg1, pg2, pg3, pg4, pg5;
@@ -388,11 +388,14 @@ function page3to5() {
   console.log(sketch3, url3);
   classifySketch();
   cnvs.hide();
+  audioTicking.stop()
+  audioTimesUp.play()
 
   pg3.style.display = "none";
   rowHeader = document.getElementById("row-heading");
   rowHeader.style.display = "none";
 }
+
 function selectTopic() {
   currentBlank = 1;
   currentStory = random(madLibsArr);
