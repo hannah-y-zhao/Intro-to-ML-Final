@@ -266,7 +266,7 @@ function switchPages() {
     // if (pg3) {
     //   pg3.style.display = "none";
     // }
-    if (!audioBackground.isLooping()){
+    if (!audioBackground.isPlaying()){
       audioBackground.loop()
     }
 

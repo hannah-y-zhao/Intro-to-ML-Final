@@ -66,12 +66,12 @@ button:hover{
 #button-page2{
     background-color: #bad7ff;
     color:#004ba8;
-    border: #5c91d5 2px solid;
-    text-align: center;
+    border: #5c91d5 0px solid;
+    text-align: right;
     font-size: 33px;
     border-radius: 15px;
-    padding:2rem 4rem 2rem 4rem;
-    margin-right: 5rem;
+    padding:1rem 4rem 1rem 4rem;
+    /* margin-right: 5rem; */
     align-self:flex-end
 }
 #button-restart{
@@ -243,4 +243,14 @@ img{
 }
 #mycanvas{
     margin:2rem;
+}
+#row-pg2{
+    display:flex;
+    flex-flow: row nowrap;
+    justify-content:space-evenly;
+    /* height:200px; */
+}
+.instruction-pg2{
+    width:300px;
+    height:auto
 }
